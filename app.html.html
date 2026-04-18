@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CreatorKit — Ferramentas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#06080F;--surf:#0C1020;--bd:rgba(255,255,255,0.07);--tx:#EEF2FF;--tx2:#7B86A4}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.hdr{background:var(--surf);border-bottom:1px solid var(--bd);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px}
+.lmark{width:32px;height:32px;border-radius:9px;background:#A855F7;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(168,85,247,0.4)}
+.lname{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;letter-spacing:-.02em}
+.tabs{display:flex;gap:4px;background:rgba(255,255,255,0.04);border-radius:12px;padding:4px;border:1px solid var(--bd)}
+.tab{padding:8px 18px;border-radius:9px;border:none;background:transparent;color:var(--tx2);font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap}
+.tab:hover{color:var(--tx)}
+.tab.t1.on{background:#A855F7;color:#fff;box-shadow:0 0 16px rgba(168,85,247,0.4)}
+.tab.t2.on{background:#00D4FF;color:#06080F;box-shadow:0 0 16px rgba(0,212,255,0.35)}
+.tab.t3.on{background:#F72578;color:#fff;box-shadow:0 0 16px rgba(247,37,120,0.4)}
+.panel{display:none;width:100%;height:calc(100vh - 65px)}
+.panel.on{display:block}
+iframe{width:100%;height:100%;border:none;display:block}
+@media(max-width:600px){
+  .tab{padding:7px 12px;font-size:12px}
+  .lname{display:none}
+  .hdr{padding:.75rem 1rem}
+}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="logo">
+    <div class="lmark"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l4.5 5-4.5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <span class="lname">CreatorKit</span>
+  </div>
+  <div class="tabs">
+    <button class="tab t1 on" onclick="show('persona',this)">✦ Persona Gen</button>
+    <button class="tab t2" onclick="show('roteiro',this)">◎ Roteiro Gen</button>
+    <button class="tab t3" onclick="show('stories',this)">▪ Stories Gen</button>
+  </div>
+</div>
+<div class="panel on" id="panel-persona">
+  <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;pt&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;>
+<title>CreatorKit — Persona Gen</title>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Sans:wght@300;400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+:root{--bg:#06080F;--surf:#0C1020;--bd:rgba(255,255,255,0.07);--bd-h:rgba(168,85,247,0.5);--tx:#EEF2FF;--tx2:#7B86A4;--tx3:#3A4260;--ac:#A855F7;--ac-g:rgba(168,85,247,0.14);--ac-gs:rgba(168,85,247,0.32);--ac-d:rgba(168,85,247,0.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.app{max-width:620px;margin:0 auto;padding:2rem 1.25rem 5rem}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.75rem}
+.logo{display:flex;align-items:center;gap:10px}
+.lmark{width:36px;height:36px;border-radius:10px;background:var(--ac);display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px var(--ac-gs),0 0 60px rgba(168,85,247,0.12)}
+.lname strong{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:-.02em;display:block;line-height:1}
+.lname small{font-size:10px;color:var(--ac);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;display:block}
+.langs{display:flex;gap:3px;background:var(--surf);border-radius:8px;padding:3px;border:1px solid var(--bd)}
+.lb{padding:4px 9px;font-size:11px;font-weight:500;border:none;background:transparent;color:var(--tx2);border-radius:5px;cursor:pointer;transition:all .2s;letter-spacing:.04em;font-family:'DM Sans',sans-serif}
+.lb.on{background:var(--ac);color:#fff}
+.pg-wrap{margin-bottom:2rem}
+.pg-track{height:2px;background:var(--bd);border-radius:2px;margin-bottom:10px;overflow:hidden}
+.pg-fill{height:100%;background:var(--ac);border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--ac)}
+.pg-info{display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);letter-spacing:.04em}
+.step{display:none}.step.on{display:block;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:11px;color:var(--ac);font-weight:500;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.sh{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.035em;line-height:1.15;margin-bottom:7px}
+.ss{font-size:14px;color:var(--tx2);margin-bottom:1.75rem;line-height:1.65}
+.og{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.75rem}
+.oc{border:1px solid var(--bd);border-radius:14px;padding:1.125rem 1.125rem 1rem;background:var(--surf);cursor:pointer;text-align:left;transition:all .2s;width:100%}
+.oc:hover{border-color:var(--bd-h);background:var(--ac-d);transform:translateY(-1px)}
+.oc.on{border-color:var(--ac);background:var(--ac-d);box-shadow:0 0 0 1px var(--ac),0 0 20px var(--ac-g)}
+.oc-ico{width:32px;height:32px;border-radius:8px;background:var(--ac-d);border:1px solid rgba(168,85,247,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:15px}
+.oc b{font-size:13.5px;font-weight:500;display:block;margin-bottom:3px;color:var(--tx)}
+.oc span{font-size:12px;color:var(--tx2);line-height:1.4;display:block}
+.fl{margin-bottom:1.125rem}
+.fl label{display:block;font-size:11.5px;font-weight:500;color:var(--tx2);margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+input,select,textarea{width:100%;background:var(--surf);border:1px solid var(--bd);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--tx);font-family:'DM Sans',sans-serif;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac-g)}
+.field-err{border-color:#f87171!important;box-shadow:0 0 0 3px rgba(248,113,113,0.15)!important}
+::placeholder{color:var(--tx3)}
+textarea{min-height:84px;resize:vertical}
+select{background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237B86A4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.chip{padding:6px 14px;border:1px solid var(--bd);border-radius:99px;font-size:13px;color:var(--tx2);background:var(--surf);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.chip.on{border-color:var(--ac);color:var(--ac);background:var(--ac-d)}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--bd)}
+.btn{padding:11px 22px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:none}
+.btn-p{background:var(--ac);color:#fff;box-shadow:0 0 20px var(--ac-gs)}
+.btn-p:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 28px var(--ac-gs)}
+.btn-p:disabled{opacity:.5;cursor:not-allowed}
+.btn-g{background:transparent;color:var(--tx2);border:1px solid var(--bd)}
+.btn-g:hover{border-color:var(--bd-h);color:var(--tx)}
+.res{display:none}.res.on{display:block;animation:fi .3s ease}
+.res-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;gap:10px;flex-wrap:wrap}
+.res-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800}
+.res-btns{display:flex;gap:8px}
+.spin-wrap{display:flex;align-items:center;gap:12px;padding:3rem 0}
+.spin{width:18px;height:18px;border:2px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:sp .7s linear infinite;box-shadow:0 0 10px var(--ac-g);flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
+.doc{background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:1.5rem;font-size:13.5px;line-height:1.9;white-space:pre-wrap;color:var(--tx);display:none}
+.res-acts{display:none;gap:10px;margin-top:1rem}
+.tool-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--ac-d);border:1px solid rgba(168,85,247,0.18);border-radius:99px;font-size:10.5px;color:var(--ac);font-weight:500;letter-spacing:.06em;margin-bottom:1.5rem}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1020;border:1px solid rgba(248,113,113,0.4);border-radius:10px;padding:10px 18px;font-size:13px;color:#f87171;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class=&quot;toast&quot; id=&quot;toast&quot;></div>
+<div class=&quot;app&quot;>
+  <div class=&quot;hdr&quot;>
+    <div class=&quot;logo&quot;>
+      <div class=&quot;lmark&quot;><svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 18 18&quot; fill=&quot;none&quot;><circle cx=&quot;9&quot; cy=&quot;9&quot; r=&quot;6&quot; fill=&quot;rgba(255,255,255,0.15)&quot;/><path d=&quot;M9 6v6M6 9h6&quot; stroke=&quot;#fff&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/></svg></div>
+      <div class=&quot;lname&quot;><strong>CreatorKit</strong><small>Persona Gen</small></div>
+    </div>
+    <div class=&quot;langs&quot;>
+      <button class=&quot;lb on&quot; onclick=&quot;setLang('pt',this)&quot;>PT</button>
+      <button class=&quot;lb&quot; onclick=&quot;setLang('en',this)&quot;>EN</button>
+      <button class=&quot;lb&quot; onclick=&quot;setLang('es',this)&quot;>ES</button>
+    </div>
+  </div>
+  <div class=&quot;pg-wrap&quot;>
+    <div class=&quot;pg-track&quot;><div class=&quot;pg-fill&quot; id=&quot;pgfill&quot; style=&quot;width:0%&quot;></div></div>
+    <div class=&quot;pg-info&quot;><span id=&quot;pgstep&quot;></span><span id=&quot;pgpct&quot;></span></div>
+  </div>
+  <div id=&quot;steps&quot;>
+    <div class=&quot;step on&quot; id=&quot;s0&quot;>
+      <div class=&quot;tool-tag&quot;>✦ Persona Gen</div>
+      <p class=&quot;eyebrow&quot; id=&quot;ey0&quot;></p><h2 class=&quot;sh&quot; id=&quot;h0&quot;></h2><p class=&quot;ss&quot; id=&quot;sb0&quot;></p>
+      <div class=&quot;og&quot;>
+        <button class=&quot;oc&quot; onclick=&quot;pick('profile','creator',this)&quot;><div class=&quot;oc-ico&quot;>✦</div><b id=&quot;oc0&quot;></b><span id=&quot;od0&quot;></span></button>
+        <button class=&quot;oc&quot; onclick=&quot;pick('profile','traffic',this)&quot;><div class=&quot;oc-ico&quot;>◎</div><b id=&quot;oc1&quot;></b><span id=&quot;od1&quot;></span></button>
+        <button class=&quot;oc&quot; onclick=&quot;pick('profile','business',this)&quot;><div class=&quot;oc-ico&quot;>⬡</div><b id=&quot;oc2&quot;></b><span id=&quot;od2&quot;></span></button>
+        <button class=&quot;oc&quot; onclick=&quot;pick('profile','consulting',this)&quot;><div class=&quot;oc-ico&quot;>◈</div><b id=&quot;oc3&quot;></b><span id=&quot;od3&quot;></span></button>
+      </div>
+      <div class=&quot;nav&quot;><span></span><button class=&quot;btn btn-p&quot; onclick=&quot;validate(0)&quot; id=&quot;n0&quot;></button></div>
+    </div>
+    <div class=&quot;step&quot; id=&quot;s1&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey1&quot;></p><h2 class=&quot;sh&quot; id=&quot;h1&quot;></h2><p class=&quot;ss&quot; id=&quot;sb1&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-niche&quot;></label><input id=&quot;f-niche&quot; type=&quot;text&quot;/></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-prod&quot;></label><input id=&quot;f-prod&quot; type=&quot;text&quot;/></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-diff&quot;></label><textarea id=&quot;f-diff&quot;></textarea></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(0)&quot; id=&quot;bk1&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;validate(1)&quot; id=&quot;n1&quot;></button></div>
+    </div>
+    <div class=&quot;step&quot; id=&quot;s2&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey2&quot;></p><h2 class=&quot;sh&quot; id=&quot;h2&quot;></h2><p class=&quot;ss&quot; id=&quot;sb2&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-age&quot;></label><select id=&quot;f-age&quot;></select></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-gen&quot;></label><select id=&quot;f-gen&quot;></select></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-inc&quot;></label><select id=&quot;f-inc&quot;></select></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-loc&quot;></label><input id=&quot;f-loc&quot; type=&quot;text&quot;/></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(1)&quot; id=&quot;bk2&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;go(3)&quot; id=&quot;n2&quot;></button></div>
+    </div>
+    <div class=&quot;step&quot; id=&quot;s3&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey3&quot;></p><h2 class=&quot;sh&quot; id=&quot;h3&quot;></h2><p class=&quot;ss&quot; id=&quot;sb3&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-pains&quot;></label><textarea id=&quot;f-pains&quot;></textarea></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-desires&quot;></label><textarea id=&quot;f-desires&quot;></textarea></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-obj&quot;></label><textarea id=&quot;f-obj&quot;></textarea></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(2)&quot; id=&quot;bk3&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;validate(3)&quot; id=&quot;n3&quot;></button></div>
+    </div>
+    <div class=&quot;step&quot; id=&quot;s4&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey4&quot;></p><h2 class=&quot;sh&quot; id=&quot;h4&quot;></h2><p class=&quot;ss&quot; id=&quot;sb4&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-plat&quot;></label><div class=&quot;chips&quot; id=&quot;plat-chips&quot;></div></div>
+      <div class=&quot;fl&quot; style=&quot;margin-top:1rem&quot;><label id=&quot;l-cont&quot;></label><textarea id=&quot;f-cont&quot;></textarea></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-trig&quot;></label><textarea id=&quot;f-trig&quot;></textarea></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(3)&quot; id=&quot;bk4&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;generate()&quot; id=&quot;genbtn&quot;></button></div>
+    </div>
+  </div>
+  <div class=&quot;res&quot; id=&quot;result&quot;>
+    <div class=&quot;res-top&quot;>
+      <h2 class=&quot;res-title&quot; id=&quot;res-title&quot;></h2>
+      <div class=&quot;res-btns&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;copyDoc()&quot; id=&quot;copybtn&quot;></button><button class=&quot;btn btn-g&quot; onclick=&quot;restart()&quot; id=&quot;restartbtn&quot;></button></div>
+    </div>
+    <div class=&quot;spin-wrap&quot; id=&quot;spin-wrap&quot;><div class=&quot;spin&quot;></div><span id=&quot;loading-txt&quot; style=&quot;font-size:14px;color:var(--tx2)&quot;></span></div>
+    <div class=&quot;doc&quot; id=&quot;doc&quot;></div>
+    <div class=&quot;res-acts&quot; id=&quot;res-acts&quot;></div>
+  </div>
+</div>
+<script>
+const API_URL = &quot;https://creatorkit-backend-nnlg.onrender.com/api/chat&quot;;
+const PLAT=['Instagram','TikTok','YouTube','Facebook','WhatsApp','LinkedIn','Pinterest','X'];
+let lang='pt',cur=0,fd={},selPlat=[];
+const TX={
+pt:{ey:['PASSO 1 / 5','PASSO 2 / 5','PASSO 3 / 5','PASSO 4 / 5','PASSO 5 / 5'],h:['Qual é o seu perfil?','Nicho e produto','Quem é essa pessoa?','Dores, desejos e objeções','Comportamento online'],sub:['Escolha o que melhor te representa para personalizar a persona.','Quanto mais específico, mais precisa será a persona.','Dados demográficos do cliente ideal.','Entenda profundamente o que essa pessoa sente, quer e teme.','Como e onde essa pessoa consome conteúdo.'],oc:['Criador de Conteúdo','Gestor de Tráfego','Negócio Local','Mentoria / Consultoria'],od:['Infoprodutos, personal brand','Agência, freelancer','Clínica, academia, loja','Programas, imersões'],lniche:'Nicho de mercado *',lprod:'O que você vende? *',ldiff:'Maior diferencial (opcional)',lage:'Faixa etária',lgen:'Gênero',linc:'Renda mensal',lloc:'Localização',lpains:'Principais dores *',ldesires:'Desejos e sonhos',lobj:'Objeções de compra',lplat:'Plataformas que ela usa',lcont:'Conteúdo que consome',ltrig:'Gatilhos de compra',age:['Selecione...','18–24 anos','25–34 anos','35–44 anos','45–54 anos','55+ anos'],gen:['Selecione...','Feminino','Masculino','Ambos / Geral'],inc:['Selecione...','Até R$2k','R$2k–R$5k','R$5k–R$10k','R$10k–R$20k','Acima de R$20k'],next:'Continuar →',back:'← Voltar',gen_btn:'Gerar Persona →',loading:'Criando sua persona completa… pode levar uns 20s',res_title:'Sua Persona',copy:'Copiar tudo',copied:'Copiado!',restart:'+ Nova persona',e0:'Selecione um perfil para continuar.',e1:'Preencha o nicho e o que você vende.',e3:'Descreva ao menos as principais dores.',
+sys(date){return`Você é um estrategista sênior de marketing digital. Data hoje: ${date}. Crie um documento COMPLETO de buyer persona em português brasileiro. Seja específico, humano e acionável. Nada genérico. Use emojis como marcadores. Estrutura obrigatória:\n\n👤 NOME E PERFIL\nNome fictício + tagline de 1 linha + resumo em 2-3 frases\n\n📊 DADOS DEMOGRÁFICOS\nIdade, localização, escolaridade, profissão, renda, estado civil, filhos\n\n🌅 ROTINA DIÁRIA\nManhã → tarde → noite (seja específico)\n\n🔥 TOP 5 DORES (rankeadas por intensidade)\n1. [dor + por que dói tanto]\n2.\n3.\n4.\n5.\n\n✨ DESEJOS E SONHOS\nO que essa pessoa realmente quer alcançar\n\n🚧 OBJEÇÕES + COMO SUPERAR\n3-4 objeções e a resposta ideal para cada\n\n📱 COMPORTAMENTO ONLINE\nPlataformas, horários, tipo de conteúdo consumido\n\n💡 GATILHOS DE COMPRA\nO que faz essa pessoa tomar a decisão de comprar\n\n🗣️ LINGUAGEM QUE USA\nExemplos reais de como ela fala/escreve\n\n📢 TOM DE COMUNICAÇÃO IDEAL\nComo você deve se comunicar com ela\n\n🎯 3 HEADLINES PARA ANÚNCIOS\n1.\n2.\n3.\n\n📣 CTA IDEAL\n[CTA poderoso e específico]\n\n🔑 NOTAS ESTRATÉGICAS\n3-5 insights táticos para conteúdo e anúncios\n\nResponda SOMENTE com o documento.`}},
+en:{ey:['STEP 1 / 5','STEP 2 / 5','STEP 3 / 5','STEP 4 / 5','STEP 5 / 5'],h:['What is your profile?','Niche &amp; product','Who is this person?','Pains, desires &amp; objections','Online behavior'],sub:['Choose what best describes you.','The more specific, the better the persona.','Demographics of your ideal customer.','Understand what this person feels, wants and fears.','How and where this person consumes content.'],oc:['Content Creator','Traffic Manager','Local Business','Coaching / Consulting'],od:['Infoproducts, personal brand','Agency, freelancer','Clinic, gym, store','Programs, workshops'],lniche:'Market niche *',lprod:'What do you sell? *',ldiff:'Main differentiator (optional)',lage:'Age range',lgen:'Gender',linc:'Monthly income',lloc:'Location',lpains:'Main pains *',ldesires:'Dreams &amp; desires',lobj:'Purchase objections',lplat:'Platforms they use',lcont:'Content they consume',ltrig:'Buying triggers',age:['Select...','18–24','25–34','35–44','45–54','55+'],gen:['Select...','Female','Male','Both / General'],inc:['Select...','Under $1k','$1k–$3k','$3k–$6k','$6k–$12k','Above $12k'],next:'Continue →',back:'← Back',gen_btn:'Generate Persona →',loading:'Creating your complete persona… may take ~20s',res_title:'Your Persona',copy:'Copy all',copied:'Copied!',restart:'+ New persona',e0:'Select a profile to continue.',e1:'Fill in niche and what you sell.',e3:'Describe at least the main pains.',
+sys(date){return`You are a senior digital marketing strategist. Today: ${date}. Create a COMPLETE buyer persona document in English. Be specific, human and actionable. Nothing generic. Use emojis as markers. Mandatory structure:\n\n👤 NAME &amp; PROFILE\nFictional name + 1-line tagline + 2-3 sentence summary\n\n📊 DEMOGRAPHICS\nAge, location, education, profession, income, marital status, children\n\n🌅 DAILY ROUTINE\nMorning → afternoon → evening (be specific)\n\n🔥 TOP 5 PAINS (ranked by intensity)\n1. [pain + why it hurts so much]\n2.\n3.\n4.\n5.\n\n✨ DESIRES &amp; DREAMS\nWhat this person really wants to achieve\n\n🚧 OBJECTIONS + HOW TO OVERCOME\n3-4 objections and ideal response for each\n\n📱 ONLINE BEHAVIOR\nPlatforms, hours, type of content consumed\n\n💡 BUYING TRIGGERS\nWhat makes this person decide to buy\n\n🗣️ LANGUAGE THEY USE\nReal examples of how they talk/write\n\n📢 IDEAL COMMUNICATION TONE\nHow you should communicate with them\n\n🎯 3 AD HEADLINES\n1.\n2.\n3.\n\n📣 IDEAL CTA\n[Powerful and specific CTA]\n\n🔑 STRATEGIC NOTES\n3-5 tactical insights for content and ads\n\nRespond ONLY with the document.`}},
+es:{ey:['PASO 1 / 5','PASO 2 / 5','PASO 3 / 5','PASO 4 / 5','PASO 5 / 5'],h:['¿Cuál es tu perfil?','Nicho y producto','¿Quién es esta persona?','Dolores, deseos y objeciones','Comportamiento online'],sub:['Elige lo que mejor te representa.','Cuanto más específico, mejor la persona.','Demografía del cliente ideal.','Entiende lo que siente, quiere y teme.','Cómo y dónde consume contenido.'],oc:['Creador de Contenido','Gestor de Tráfico','Negocio Local','Mentoría / Consultoría'],od:['Infoproductos, marca personal','Agencia, freelancer','Clínica, gimnasio, tienda','Programas, inmersiones'],lniche:'Nicho de mercado *',lprod:'¿Qué vendes? *',ldiff:'Principal diferencial (opcional)',lage:'Rango de edad',lgen:'Género',linc:'Ingreso mensual',lloc:'Ubicación',lpains:'Dolores principales *',ldesires:'Deseos y sueños',lobj:'Objeciones de compra',lplat:'Plataformas que usa',lcont:'Contenido que consume',ltrig:'Disparadores de compra',age:['Selecciona...','18–24','25–34','35–44','45–54','55+'],gen:['Selecciona...','Femenino','Masculino','Ambos / General'],inc:['Selecciona...','Hasta $1k','$1k–$3k','$3k–$6k','$6k–$12k','Más de $12k'],next:'Continuar →',back:'← Volver',gen_btn:'Generar Persona →',loading:'Creando tu persona completa… puede tardar ~20s',res_title:'Tu Persona',copy:'Copiar todo',copied:'¡Copiado!',restart:'+ Nueva persona',e0:'Selecciona un perfil para continuar.',e1:'Completa nicho y qué vendes.',e3:'Describe al menos los dolores principales.',
+sys(date){return`Eres un estratega senior de marketing digital. Hoy: ${date}. Crea un documento COMPLETO de buyer persona en español. Sé específico, humano y accionable. Nada genérico. Usa emojis como marcadores. Estructura obligatoria:\n\n👤 NOMBRE Y PERFIL\nNombre ficticio + tagline de 1 línea + resumen en 2-3 frases\n\n📊 DATOS DEMOGRÁFICOS\nEdad, ubicación, educación, profesión, ingresos, estado civil, hijos\n\n🌅 RUTINA DIARIA\nMañana → tarde → noche (sé específico)\n\n🔥 TOP 5 DOLORES (rankeados por intensidad)\n1. [dolor + por qué duele tanto]\n2.\n3.\n4.\n5.\n\n✨ DESEOS Y SUEÑOS\nLo que realmente quiere lograr\n\n🚧 OBJECIONES + CÓMO SUPERAR\n3-4 objeciones y respuesta ideal para cada una\n\n📱 COMPORTAMIENTO ONLINE\nPlataformas, horarios, tipo de contenido consumido\n\n💡 DISPARADORES DE COMPRA\nQué hace que decida comprar\n\n🗣️ LENGUAJE QUE USA\nEjemplos reales de cómo habla/escribe\n\n📢 TONO DE COMUNICACIÓN IDEAL\nCómo debes comunicarte con ella\n\n🎯 3 TITULARES PARA ANUNCIOS\n1.\n2.\n3.\n\n📣 CTA IDEAL\n[CTA poderoso y específico]\n\n🔑 NOTAS ESTRATÉGICAS\n3-5 insights tácticos para contenido y anuncios\n\nResponde SOLO con el documento.`}}
+};
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+function s(id,v){const e=document.getElementById(id);if(e)e.textContent=v||''}
+function setLang(l,btn){lang=l;document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');applyAll();buildChips()}
+function buildSel(id,opts){const el=document.getElementById(id);if(!el)return;const cv=el.value;el.innerHTML=opts.map((o,i)=>`<option value=&quot;${i===0?'':o}&quot;>${o}</option>`).join('');if(cv)el.value=cv}
+function applyAll(){const tx=TX[lang];for(let i=0;i<5;i++){s('ey'+i,tx.ey[i]);s('h'+i,tx.h[i]);s('sb'+i,tx.sub[i])}for(let i=0;i<4;i++){s('oc'+i,tx.oc[i]);s('od'+i,tx.od[i])}const lm={niche:'lniche',prod:'lprod',diff:'ldiff',age:'lage',gen:'lgen',inc:'linc',loc:'lloc',pains:'lpains',desires:'ldesires',obj:'lobj',plat:'lplat',cont:'lcont',trig:'ltrig'};Object.keys(lm).forEach(k=>{const el=document.getElementById('l-'+k);if(el)el.textContent=tx[lm[k]]});buildSel('f-age',tx.age);buildSel('f-gen',tx.gen);buildSel('f-inc',tx.inc);for(let i=1;i<=4;i++){s('n'+i,tx.next);s('bk'+i,tx.back)}s('n0',tx.next);s('genbtn',tx.gen_btn);s('loading-txt',tx.loading);s('res-title',tx.res_title);const cb=document.getElementById('copybtn');if(cb)cb.textContent=tx.copy;const rb=document.getElementById('restartbtn');if(rb)rb.textContent=tx.restart;updPg()}
+function buildChips(){const w=document.getElementById('plat-chips');w.innerHTML=PLAT.map(p=>`<button class=&quot;chip${selPlat.includes(p)?' on':''}&quot; onclick=&quot;togglePlat('${p}',this)&quot;>${p}</button>`).join('')}
+function togglePlat(p,btn){if(selPlat.includes(p))selPlat=selPlat.filter(x=>x!==p);else selPlat.push(p);btn.classList.toggle('on')}
+function pick(k,v,btn){fd[k]=v;btn.closest('.og').querySelectorAll('.oc').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+function go(n){document.getElementById('s'+cur).classList.remove('on');cur=n;document.getElementById('s'+n).classList.add('on');updPg();window.scrollTo({top:0,behavior:'smooth'})}
+function validate(step){
+  const tx=TX[lang];
+  if(step===0){if(!fd.profile){toast(tx.e0);return}go(1);return}
+  if(step===1){const ni=document.getElementById('f-niche').value.trim(),pr=document.getElementById('f-prod').value.trim();if(!ni||!pr){if(!ni)flash('f-niche');if(!pr)flash('f-prod');toast(tx.e1);return}go(2);return}
+  if(step===3){const pa=document.getElementById('f-pains').value.trim();if(!pa){flash('f-pains');toast(tx.e3);return}go(4);return}
+}
+function flash(id){const el=document.getElementById(id);if(!el)return;el.classList.add('field-err');setTimeout(()=>el.classList.remove('field-err'),2500)}
+function updPg(){const pct=Math.round((cur/4)*100);document.getElementById('pgfill').style.width=pct+'%';document.getElementById('pgstep').textContent=TX[lang].ey[cur]||'';document.getElementById('pgpct').textContent=pct+'%'}
+function nowDate(){return new Date().toLocaleDateString(lang==='pt'?'pt-BR':lang==='es'?'es-ES':'en-US',{day:'2-digit',month:'long',year:'numeric'})}
+async function generate(){
+  ['niche','prod','diff','loc','cont','trig'].forEach(k=>{fd[k]=document.getElementById('f-'+k)?.value||''});
+  ['age','gen','inc'].forEach(k=>{fd[k]=document.getElementById('f-'+k)?.value||''});
+  ['pains','desires','obj'].forEach(k=>{fd[k]=document.getElementById('f-'+k)?.value||''});
+  fd.plat=selPlat.join(', ');
+  const btn=document.getElementById('genbtn');btn.disabled=true;
+  document.getElementById('steps').style.display='none';
+  document.getElementById('result').classList.add('on');
+  document.getElementById('spin-wrap').style.display='flex';
+  document.getElementById('doc').style.display='none';
+  document.getElementById('res-acts').style.display='none';
+  const pm={creator:TX[lang].oc[0],traffic:TX[lang].oc[1],business:TX[lang].oc[2],consulting:TX[lang].oc[3]};
+  const msg=`Perfil: ${pm[fd.profile]||'N/A'}\nNicho: ${fd.niche}\nProduto/Serviço: ${fd.prod}\nDiferencial: ${fd.diff||'Não informado'}\nFaixa etária: ${fd.age||'Não informado'}\nGênero: ${fd.gen||'Não informado'}\nRenda: ${fd.inc||'Não informado'}\nLocalização: ${fd.loc||'Não informado'}\nDores: ${fd.pains}\nDesejos: ${fd.desires||'Não informado'}\nObjeções: ${fd.obj||'Não informado'}\nPlataformas: ${fd.plat||'Não informado'}\nConteúdo: ${fd.cont||'Não informado'}\nGatilhos: ${fd.trig||'Não informado'}`;
+  try{
+    const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,system:TX[lang].sys(nowDate()),messages:[{role:'user',content:msg}]})});
+    const d=await r.json();
+    const txt=d.content?.map(b=>b.text||'').join('')||'Erro ao gerar.';
+    document.getElementById('spin-wrap').style.display='none';
+    const doc=document.getElementById('doc');doc.textContent=txt;doc.style.display='block';
+    document.getElementById('res-acts').style.display='flex';
+  }catch(e){
+    document.getElementById('spin-wrap').style.display='none';
+    const doc=document.getElementById('doc');doc.textContent='Erro de conexão. Tente novamente.';doc.style.display='block';
+    document.getElementById('res-acts').style.display='flex';
+    btn.disabled=false;
+  }
+}
+function copyDoc(){navigator.clipboard.writeText(document.getElementById('doc').textContent).then(()=>{const btn=document.getElementById('copybtn');btn.textContent=TX[lang].copied;setTimeout(()=>btn.textContent=TX[lang].copy,2000)})}
+function restart(){fd={};selPlat=[];cur=0;document.getElementById('steps').style.display='block';document.getElementById('result').classList.remove('on');document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));document.getElementById('s0').classList.add('on');document.querySelectorAll('.oc').forEach(b=>b.classList.remove('on'));document.getElementById('genbtn').disabled=false;['f-niche','f-prod','f-diff','f-loc','f-cont','f-trig','f-pains','f-desires','f-obj'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});applyAll();buildChips();window.scrollTo({top:0,behavior:'smooth'})}
+applyAll();buildChips();
+</script>
+</body>
+</html>
+" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+</div>
+<div class="panel" id="panel-roteiro">
+  <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;pt&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;>
+<title>CreatorKit — Roteiro Gen</title>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Sans:wght@300;400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+:root{--bg:#06080F;--surf:#0C1020;--bd:rgba(255,255,255,0.07);--bd-h:rgba(0,212,255,0.45);--tx:#E0F7FF;--tx2:#6B8499;--tx3:#334455;--ac:#00D4FF;--ac-g:rgba(0,212,255,0.12);--ac-gs:rgba(0,212,255,0.28);--ac-d:rgba(0,212,255,0.07)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.app{max-width:640px;margin:0 auto;padding:2rem 1.25rem 5rem}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.75rem}
+.logo{display:flex;align-items:center;gap:10px}
+.lmark{width:36px;height:36px;border-radius:10px;background:var(--ac);display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px var(--ac-gs),0 0 60px rgba(0,212,255,0.1)}
+.lname strong{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:-.02em;display:block;line-height:1}
+.lname small{font-size:10px;color:var(--ac);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;display:block}
+.langs{display:flex;gap:3px;background:var(--surf);border-radius:8px;padding:3px;border:1px solid var(--bd)}
+.lb{padding:4px 9px;font-size:11px;font-weight:500;border:none;background:transparent;color:var(--tx2);border-radius:5px;cursor:pointer;transition:all .2s;letter-spacing:.04em;font-family:'DM Sans',sans-serif}
+.lb.on{background:var(--ac);color:#06080F;font-weight:600}
+.pg-wrap{margin-bottom:2rem}
+.pg-track{height:2px;background:var(--bd);border-radius:2px;margin-bottom:10px;overflow:hidden}
+.pg-fill{height:100%;background:var(--ac);border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--ac)}
+.pg-info{display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);letter-spacing:.04em}
+.step{display:none}.step.on{display:block;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:11px;color:var(--ac);font-weight:500;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.sh{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.035em;line-height:1.15;margin-bottom:7px}
+.ss{font-size:14px;color:var(--tx2);margin-bottom:1.75rem;line-height:1.65}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.mcard{border:1px solid var(--bd);border-radius:14px;padding:1.25rem;background:var(--surf);cursor:pointer;text-align:left;transition:all .2s;width:100%}
+.mcard:hover{border-color:var(--bd-h);background:var(--ac-d)}
+.mcard.on{border-color:var(--ac);background:var(--ac-d);box-shadow:0 0 0 1px var(--ac),0 0 20px var(--ac-g)}
+.mcard-ico{width:30px;height:30px;border-radius:8px;background:var(--ac-d);border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:8px;font-size:14px;color:var(--ac)}
+.mcard b{font-size:13.5px;font-weight:500;display:block;margin-bottom:3px;color:var(--tx)}
+.mcard span{font-size:12px;color:var(--tx2);line-height:1.4;display:block}
+.fl{margin-bottom:1.125rem}
+.fl label{display:block;font-size:11.5px;font-weight:500;color:var(--tx2);margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+input,select,textarea{width:100%;background:var(--surf);border:1px solid var(--bd);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--tx);font-family:'DM Sans',sans-serif;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac-g)}
+.field-err{border-color:#f87171!important;box-shadow:0 0 0 3px rgba(248,113,113,0.15)!important}
+::placeholder{color:var(--tx3)}
+textarea{min-height:90px;resize:vertical}
+select{background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B8499' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.plat-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem}
+.plat-btn{border:1px solid var(--bd);border-radius:12px;padding:.875rem 1rem;background:var(--surf);cursor:pointer;text-align:center;font-size:14px;font-weight:500;color:var(--tx2);transition:all .2s;font-family:'DM Sans',sans-serif}
+.plat-btn.on{border-color:var(--ac);color:var(--ac);background:var(--ac-d);box-shadow:0 0 0 1px var(--ac)}
+.funnel-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.5rem}
+.funnel-btn{border:1px solid var(--bd);border-radius:12px;padding:.875rem .5rem;background:var(--surf);cursor:pointer;text-align:center;transition:all .2s;width:100%;font-family:'DM Sans',sans-serif}
+.funnel-btn.on{border-color:var(--ac);background:var(--ac-d);box-shadow:0 0 0 1px var(--ac)}
+.funnel-btn b{font-size:13px;font-weight:500;display:block;color:var(--tx);margin-bottom:2px}
+.funnel-btn small{font-size:11px;color:var(--tx2)}
+.tab-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tab-btn{padding:5px 12px;border:1px solid var(--bd);border-radius:99px;font-size:12px;cursor:pointer;background:transparent;color:var(--tx2);transition:all .2s;font-family:'DM Sans',sans-serif}
+.tab-btn.on{border-color:var(--ac);background:var(--ac-d);color:var(--ac)}
+.hook-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;max-height:220px;overflow-y:auto;padding-right:4px;margin-bottom:1rem}
+.hook-item{border:1px solid var(--bd);border-radius:10px;padding:9px 11px;cursor:pointer;background:var(--surf);text-align:left;font-size:13px;color:var(--tx2);line-height:1.45;transition:all .15s;font-family:'DM Sans',sans-serif;width:100%}
+.hook-item.on{border-color:var(--ac);color:var(--ac);background:var(--ac-d)}
+.hook-edit-box{background:var(--surf);border:1px solid var(--ac);border-radius:10px;padding:.875rem;margin-bottom:1rem;display:none}
+.hook-edit-box.on{display:block;animation:fi .2s ease}
+.hook-edit-box label{font-size:11px;color:var(--ac);letter-spacing:.08em;text-transform:uppercase;font-weight:500;display:block;margin-bottom:6px}
+.hook-edit-box textarea{min-height:60px;border-color:rgba(0,212,255,0.25);background:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.chip{padding:6px 14px;border:1px solid var(--bd);border-radius:99px;font-size:13px;color:var(--tx2);background:var(--surf);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.chip.on{border-color:var(--ac);color:var(--ac);background:var(--ac-d)}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--bd)}
+.btn{padding:11px 22px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:none}
+.btn-p{background:var(--ac);color:#06080F;box-shadow:0 0 20px var(--ac-gs);font-weight:600}
+.btn-p:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 28px var(--ac-gs)}
+.btn-p:disabled{opacity:.5;cursor:not-allowed}
+.btn-g{background:transparent;color:var(--tx2);border:1px solid var(--bd)}
+.btn-g:hover{border-color:var(--bd-h);color:var(--tx)}
+.res{display:none}.res.on{display:block;animation:fi .3s ease}
+.res-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;gap:10px;flex-wrap:wrap}
+.res-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800}
+.res-btns{display:flex;gap:8px}
+.spin-wrap{display:flex;align-items:center;gap:12px;padding:3rem 0}
+.spin{width:18px;height:18px;border:2px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:sp .7s linear infinite;box-shadow:0 0 10px var(--ac-g);flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
+.doc{background:var(--surf);border:1px solid var(--bd);border-radius:14px;padding:1.5rem;font-size:13.5px;line-height:1.9;white-space:pre-wrap;color:var(--tx);display:none}
+.res-acts{display:none;gap:10px;margin-top:1rem}
+.tool-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--ac-d);border:1px solid rgba(0,212,255,0.16);border-radius:99px;font-size:10.5px;color:var(--ac);font-weight:500;letter-spacing:.06em;margin-bottom:1.5rem}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#0a1520;border:1px solid rgba(248,113,113,0.4);border-radius:10px;padding:10px 18px;font-size:13px;color:#f87171;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class=&quot;toast&quot; id=&quot;toast&quot;></div>
+<div class=&quot;app&quot;>
+  <div class=&quot;hdr&quot;>
+    <div class=&quot;logo&quot;>
+      <div class=&quot;lmark&quot;><svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 18 18&quot; fill=&quot;none&quot;><path d=&quot;M3 9h12M9 3l5 6-5 6&quot; stroke=&quot;#06080F&quot; stroke-width=&quot;1.6&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/></svg></div>
+      <div class=&quot;lname&quot;><strong>CreatorKit</strong><small>Roteiro Gen</small></div>
+    </div>
+    <div class=&quot;langs&quot;>
+      <button class=&quot;lb on&quot; onclick=&quot;setLang('pt',this)&quot;>PT</button>
+      <button class=&quot;lb&quot; onclick=&quot;setLang('en',this)&quot;>EN</button>
+      <button class=&quot;lb&quot; onclick=&quot;setLang('es',this)&quot;>ES</button>
+    </div>
+  </div>
+  <div class=&quot;pg-wrap&quot;>
+    <div class=&quot;pg-track&quot;><div class=&quot;pg-fill&quot; id=&quot;pgfill&quot; style=&quot;width:0%&quot;></div></div>
+    <div class=&quot;pg-info&quot;><span id=&quot;pgstep&quot;></span><span id=&quot;pgpct&quot;></span></div>
+  </div>
+  <div id=&quot;steps&quot;>
+    <!-- S0: persona mode -->
+    <div class=&quot;step on&quot; id=&quot;s0&quot;>
+      <div class=&quot;tool-tag&quot;>◎ Roteiro Gen</div>
+      <p class=&quot;eyebrow&quot; id=&quot;ey0&quot;></p><h2 class=&quot;sh&quot; id=&quot;h0&quot;></h2><p class=&quot;ss&quot; id=&quot;sb0&quot;></p>
+      <div class=&quot;mode-grid&quot;>
+        <button class=&quot;mcard on&quot; id=&quot;mc-paste&quot; onclick=&quot;pickMode('paste',this)&quot;><div class=&quot;mcard-ico&quot;>⊕</div><b id=&quot;mc0&quot;></b><span id=&quot;md0&quot;></span></button>
+        <button class=&quot;mcard&quot; id=&quot;mc-fields&quot; onclick=&quot;pickMode('fields',this)&quot;><div class=&quot;mcard-ico&quot;>≡</div><b id=&quot;mc1&quot;></b><span id=&quot;md1&quot;></span></button>
+      </div>
+      <div id=&quot;paste-area&quot;>
+        <div class=&quot;fl&quot;><label id=&quot;l-paste&quot;></label><textarea id=&quot;f-paste&quot; style=&quot;min-height:130px&quot;></textarea></div>
+      </div>
+      <div id=&quot;fields-area&quot; style=&quot;display:none&quot;>
+        <div class=&quot;fl&quot;><label id=&quot;l-fniche&quot;></label><input id=&quot;f-fniche&quot; type=&quot;text&quot;/></div>
+        <div class=&quot;fl&quot;><label id=&quot;l-favatar&quot;></label><input id=&quot;f-favatar&quot; type=&quot;text&quot;/></div>
+        <div class=&quot;fl&quot;><label id=&quot;l-fpain&quot;></label><input id=&quot;f-fpain&quot; type=&quot;text&quot;/></div>
+        <div class=&quot;fl&quot;><label id=&quot;l-fdesire&quot;></label><input id=&quot;f-fdesire&quot; type=&quot;text&quot;/></div>
+      </div>
+      <div class=&quot;nav&quot;><span></span><button class=&quot;btn btn-p&quot; onclick=&quot;validate(0)&quot; id=&quot;n0&quot;></button></div>
+    </div>
+    <!-- S1: plataforma + funil + tópico -->
+    <div class=&quot;step&quot; id=&quot;s1&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey1&quot;></p><h2 class=&quot;sh&quot; id=&quot;h1&quot;></h2><p class=&quot;ss&quot; id=&quot;sb1&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-plat&quot;></label>
+        <div class=&quot;plat-row&quot;>
+          <button class=&quot;plat-btn on&quot; onclick=&quot;pickPlat('reels',this)&quot; id=&quot;pb-reels&quot;></button>
+          <button class=&quot;plat-btn&quot; onclick=&quot;pickPlat('stories',this)&quot; id=&quot;pb-stories&quot;></button>
+        </div>
+      </div>
+      <div class=&quot;fl&quot;><label id=&quot;l-funnel&quot;></label>
+        <div class=&quot;funnel-row&quot;>
+          <button class=&quot;funnel-btn on&quot; onclick=&quot;pickFunnel('top',this)&quot;><b id=&quot;fb-top&quot;></b><small id=&quot;fs-top&quot;></small></button>
+          <button class=&quot;funnel-btn&quot; onclick=&quot;pickFunnel('mid',this)&quot;><b id=&quot;fb-mid&quot;></b><small id=&quot;fs-mid&quot;></small></button>
+          <button class=&quot;funnel-btn&quot; onclick=&quot;pickFunnel('bot',this)&quot;><b id=&quot;fb-bot&quot;></b><small id=&quot;fs-bot&quot;></small></button>
+        </div>
+      </div>
+      <div class=&quot;fl&quot;><label id=&quot;l-topic&quot;></label><input id=&quot;f-topic&quot; type=&quot;text&quot;/></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(0)&quot; id=&quot;bk1&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;validate(1)&quot; id=&quot;n1&quot;></button></div>
+    </div>
+    <!-- S2: gancho -->
+    <div class=&quot;step&quot; id=&quot;s2&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey2&quot;></p><h2 class=&quot;sh&quot; id=&quot;h2&quot;></h2><p class=&quot;ss&quot; id=&quot;sb2&quot;></p>
+      <div class=&quot;tab-row&quot; id=&quot;hook-tabs&quot;></div>
+      <div class=&quot;hook-grid&quot; id=&quot;hook-grid&quot;></div>
+      <div class=&quot;hook-edit-box&quot; id=&quot;hook-edit-box&quot;>
+        <label id=&quot;l-hookedit&quot;></label>
+        <textarea id=&quot;f-hookedit&quot; rows=&quot;2&quot;></textarea>
+      </div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(1)&quot; id=&quot;bk2&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;go(3)&quot; id=&quot;n2&quot;></button></div>
+    </div>
+    <!-- S3: formato -->
+    <div class=&quot;step&quot; id=&quot;s3&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey3&quot;></p><h2 class=&quot;sh&quot; id=&quot;h3&quot;></h2><p class=&quot;ss&quot; id=&quot;sb3&quot;></p>
+      <div class=&quot;tab-row&quot; id=&quot;fmt-tabs&quot;></div>
+      <div class=&quot;chips&quot; id=&quot;fmt-chips&quot;></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(2)&quot; id=&quot;bk3&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;go(4)&quot; id=&quot;n3&quot;></button></div>
+    </div>
+    <!-- S4: extras -->
+    <div class=&quot;step&quot; id=&quot;s4&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey4&quot;></p><h2 class=&quot;sh&quot; id=&quot;h4&quot;></h2><p class=&quot;ss&quot; id=&quot;sb4&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-extra&quot;></label><textarea id=&quot;f-extra&quot;></textarea></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(3)&quot; id=&quot;bk4&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;generateScript()&quot; id=&quot;genbtn&quot;></button></div>
+    </div>
+  </div>
+  <div class=&quot;res&quot; id=&quot;result&quot;>
+    <div class=&quot;res-top&quot;>
+      <h2 class=&quot;res-title&quot; id=&quot;res-title&quot;></h2>
+      <div class=&quot;res-btns&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;copySc()&quot; id=&quot;copybtn&quot;></button><button class=&quot;btn btn-g&quot; onclick=&quot;restart()&quot; id=&quot;restartbtn&quot;></button></div>
+    </div>
+    <div class=&quot;spin-wrap&quot; id=&quot;spin-wrap&quot;><div class=&quot;spin&quot;></div><span id=&quot;loading-txt&quot; style=&quot;font-size:14px;color:var(--tx2)&quot;></span></div>
+    <div class=&quot;doc&quot; id=&quot;doc&quot;></div>
+    <div class=&quot;res-acts&quot; id=&quot;res-acts&quot;></div>
+  </div>
+</div>
+<script>
+const API_URL = &quot;https://creatorkit-backend-nnlg.onrender.com/api/chat&quot;;
+const HOOKS_PT={Curiosidade:['O que ninguém te conta sobre [assunto]','A verdade sobre [assunto] que a maioria ignora','Por que [resultado] não está funcionando para você','Descubra o motivo real por trás de [problema]','Isso vai mudar a forma como você vê [assunto]','Isso acontece com [avatar] e ninguém fala abertamente'],Dor:['Se você [sintoma da dor], assista até o final','Cansado(a) de [dor recorrente] sem resultado?','Para quem já tentou de tudo e não conseguiu [resultado]','[Dor] está te impedindo de [desejo]? Eu entendo','Você não está falhando — o método está errado','Quantas vezes você já desistiu por causa de [obstáculo]?'],Promessa:['Como [resultado] em [prazo] sem [sacrifício]','O método que me fez [resultado] em [tempo]','Você pode [resultado] mesmo que [objeção]','Em [X] dias você vai ver [resultado] diferente','Simples assim: [resultado] usando [solução] todo dia','A estratégia para [resultado] rápido sem complicar'],Polêmica:['[Crença popular] está errada. Vou provar.','Pare de [ação comum] se quiser [resultado]','O que a [indústria] não quer que você saiba','Isso vai contra o que todos dizem, mas funciona','Discordo de [autoridade]. Aqui está o motivo.','Todo mundo faz [X] e é por isso que não tem resultado'],Pergunta:['Você já se perguntou por que [problema comum]?','Qual desses erros você ainda comete com [tema]?','O que você faria se pudesse [transformação]?','Você sabia que [dado surpreendente sobre o tema]?','Quantas pessoas você conhece que já [situação]?','Se pudesse mudar uma coisa em [área], qual seria?'],Segredo:['O segredo que [profissional] usa e não divulga','Finalmente vou revelar como [resultado]','Isso foi o que mudou tudo na minha [área]','Ninguém mais está falando isso sobre [assunto]','O que eu descobri depois de [X] anos em [nicho]','Aprendi isso com [autoridade] e transformou tudo'],Dado:['[X]% das pessoas cometem esse erro com [tema]','Estudos mostram que [dado surpreendente]','[X] em cada 10 [avatares] nunca vai conseguir [resultado]','Após [X] casos, identifiquei o padrão que faz [resultado]','Em [tempo], mais de [número] pessoas alcançaram [resultado]','A ciência explica por que você não consegue [resultado]'],Contra:['Fazendo menos você vai conseguir [resultado] mais rápido','Parei de [ação comum] e meu resultado disparou','O erro que mais atrapalha é o que parece certo','A solução mais simples é justamente a que ninguém tenta','Menos é mais: [estratégia simples] bate [método complexo]','Por que trabalhar mais está te deixando mais longe do resultado'],História:['Era [situação ruim]. Hoje é diferente. Vou te contar como.','Isso me aconteceu e mudou minha perspectiva sobre [tema]','Um cliente chegou assim e eu nunca esqueci','Há [X] anos eu era exatamente você. Veja o que mudou.','POV: você finalmente resolve [problema] de uma vez por todas','O dia que percebi que estava fazendo tudo errado']};
+const HOOKS_EN={Curiosity:['What nobody tells you about [topic]','The truth about [topic] most people ignore','Why [result] isn\'t working for you','Discover the real reason behind [problem]','This will change how you see [topic]','This happens to [avatar] and nobody talks about it'],Pain:['If you [pain symptom], watch until the end','Tired of [recurring pain] with no results?','For those who tried everything and still can\'t [result]','[Pain] is keeping you from [desire]? I understand','You\'re not failing — the method is wrong','How many times have you given up because of [obstacle]?'],Promise:['How to [result] in [timeframe] without [sacrifice]','The method that got me [result] in [time]','You can [result] even if [objection]','In [X] days you\'ll see a different [result]','Simple: [result] using [solution] every day','The strategy for fast [result] without overcomplicating'],Controversy:['[Popular belief] is wrong. I\'ll prove it.','Stop [common action] if you want [result]','What [industry] doesn\'t want you to know','This goes against everything people say, but it works','I disagree with [authority]. Here\'s why.','Everyone does [X] and that\'s exactly why they fail'],Question:['Have you ever wondered why [common problem]?','Which of these mistakes do you still make with [topic]?','What would you do if you could [transformation]?','Did you know [surprising fact about the topic]?','How many people do you know who have [situation]?','If you could change one thing about [area], what would it be?'],Secret:['The secret [professional] uses and won\'t share','I\'m finally revealing how to [result]','This is what changed everything in my [area]','Nobody else is talking about this on [topic]','What I discovered after [X] years in [niche]','I learned this from [authority] and it transformed everything'],Data:['[X]% of people make this mistake with [topic]','Studies show that [surprising fact]','[X] in 10 [avatars] will never [result] without knowing this','After [X] cases, I identified the pattern for [result]','In [time], over [number] people achieved [result]','Science explains why you can\'t achieve [result]'],Counterintuitive:['Doing less will get you [result] faster','I stopped [common action] and my results skyrocketed','The mistake that holds most back is the one that seems right','The simplest solution is exactly the one no one tries','Less is more: [simple strategy] beats [complex method]','Why working harder is keeping you further from results'],Story:['It was [bad situation]. Today is different. Here\'s how.','This happened to me and changed my view on [topic]','A client came to me like this and I never forgot','[X] years ago I was exactly you. See what changed.','POV: you finally solve [problem] once and for all','The day I realized I was doing everything wrong']};
+const HOOKS_ES={Curiosidad:['Lo que nadie te cuenta sobre [tema]','La verdad sobre [tema] que la mayoría ignora','Por qué [resultado] no está funcionando para ti','Descubre la razón real detrás de [problema]','Esto cambiará la forma en que ves [tema]','Esto le pasa a [avatar] y nadie habla de ello'],Dolor:['Si tú [síntoma], mira hasta el final','¿Cansado/a de [dolor] sin resultados?','Para los que lo intentaron todo y aún no logran [resultado]','[Dolor] te está impidiendo [deseo]? Te entiendo','No estás fallando — el método está equivocado','¿Cuántas veces has abandonado por [obstáculo]?'],Promesa:['Cómo [resultado] en [plazo] sin [sacrificio]','El método que me dio [resultado] en [tiempo]','Puedes [resultado] aunque [objeción]','En [X] días verás [resultado] diferente','Simple: [resultado] usando [solución] cada día','La estrategia para [resultado] rápido sin complicar'],Polémica:['[Creencia popular] está mal. Lo voy a demostrar.','Deja de [acción común] si quieres [resultado]','Lo que la [industria] no quiere que sepas','Esto va contra lo que todos dicen, pero funciona','No estoy de acuerdo con [autoridad]. Aquí está el motivo.','Todos hacen [X] y por eso no tienen resultado'],Pregunta:['¿Alguna vez te has preguntado por qué [problema]?','¿Cuál de estos errores sigues cometiendo con [tema]?','¿Qué harías si pudieras [transformación]?','¿Sabías que [dato sorprendente]?','¿Cuántas personas conoces que ya [situación]?','Si pudieras cambiar una cosa en [área], ¿cuál sería?'],Secreto:['El secreto que [profesional] usa y no divulga','Finalmente voy a revelar cómo [resultado]','Esto fue lo que cambió todo en mi [área]','Nadie más está hablando de esto sobre [tema]','Lo que descubrí después de [X] años en [nicho]','Aprendí esto de [autoridad] y transformó todo'],Dato:['El [X]% de las personas cometen este error con [tema]','Los estudios muestran que [dato sorprendente]','[X] de cada 10 [avatares] nunca logrará [resultado]','Tras [X] casos, identifiqué el patrón que hace [resultado]','En [tiempo], más de [número] personas lograron [resultado]','La ciencia explica por qué no puedes lograr [resultado]'],Contraintuitivo:['Haciendo menos conseguirás [resultado] más rápido','Dejé de [acción común] y mis resultados se dispararon','El error que más frena es el que parece correcto','La solución más simple es justamente la que nadie intenta','Menos es más: [estrategia simple] supera [método complejo]','Por qué trabajar más te aleja del resultado'],Historia:['Era [situación mala]. Hoy es diferente. Te cuento cómo.','Esto me pasó y cambió mi perspectiva sobre [tema]','Un cliente llegó así y nunca lo olvidé','Hace [X] años yo era exactamente tú. Ve lo que cambió.','POV: finalmente resuelves [problema] de una vez por todas','El día que me di cuenta de que lo estaba haciendo todo mal']};
+const FMTS_PT={Educativo:['Tutorial passo a passo','Lista de dicas rápidas','Mito vs Verdade','Desmistificação','Explicação de conceito complexo','Breakdown de estratégia'],Prova:['Depoimento em vídeo','Antes e depois','Resultado de cliente','Print de aprovação','Story de transformação','Showcase de resultados'],Entretenimento:['POV (ponto de vista)','Story time','Dia na vida','Erro engraçado + aprendizado','Reação comentada','Trending + conteúdo'],Engajamento:['Pergunta + resposta','Votação / Enquete','Complete a frase','Desafio para seguidor','Salva esse post','Marque alguém que precisa ver'],Bastidores:['Making of','Rotina de trabalho real','Processo do produto','A jornada até o resultado','Erros e retrabalhos','Tour pelo espaço'],Conversão:['Oferta direta com CTA','Objeção → solução','Escassez real','Comparativo antes/depois','Prova de autoridade + CTA','Urgência de oportunidade']};
+const FMTS_EN={Educational:['Step-by-step tutorial','Quick tips list','Myth vs Truth','Debunking','Complex concept explained','Strategy breakdown'],Social_Proof:['Video testimonial','Before and after','Client result','Approval screenshot','Transformation story','Results showcase'],Entertainment:['POV (point of view)','Story time','Day in the life','Funny mistake + lesson','Commented reaction','Trending + content'],Engagement:['Question + answer','Poll / Vote','Complete the phrase','Follower challenge','Save this post','Tag someone who needs this'],Behind_Scenes:['Making of','Real work routine','Product process','Journey to the result','Mistakes and rework','Space tour'],Conversion:['Direct offer with CTA','Objection → solution','Real scarcity','Before/after comparison','Authority proof + CTA','Opportunity urgency']};
+const FMTS_ES={Educativo:['Tutorial paso a paso','Lista de consejos rápidos','Mito vs Verdad','Desmitificación','Concepto complejo explicado','Desglose de estrategia'],Prueba:['Testimonio en video','Antes y después','Resultado de cliente','Captura de aprobación','Story de transformación','Muestra de resultados'],Entretenimiento:['POV (punto de vista)','Story time','Un día en mi vida','Error gracioso + aprendizaje','Reacción comentada','Tendencia + contenido'],Engagement:['Pregunta + respuesta','Votación / Encuesta','Completa la frase','Desafío para seguidor','Guarda este post','Etiqueta a alguien que necesita ver'],Bastidores:['Making of','Rutina de trabajo real','Proceso del producto','El camino al resultado','Errores y retrabajos','Tour del espacio'],Conversión:['Oferta directa con CTA','Objeción → solución','Escasez real','Comparativo antes/después','Prueba de autoridad + CTA','Urgencia de oportunidad']};
+
+let lang='pt',cur=0,fd={},selMode='paste',selPlat='reels',selFunnel='top',selHook='',selHookCat='',selFmt='',selFmtCat='';
+const TX={
+  pt:{ey:['PASSO 1 / 5','PASSO 2 / 5','PASSO 3 / 5','PASSO 4 / 5','PASSO 5 / 5'],h:['Como inserir a persona?','Plataforma e funil','Escolha o gancho','Formato de gravação','Detalhes finais'],sub:['Escolha como prefere inserir a persona.','Onde vai publicar e qual etapa do funil.','O gancho é o que prende nos primeiros 3 segundos.','Como o conteúdo será gravado e apresentado.','Algum detalhe adicional para o roteiro.'],mc:['Colar persona','Preencher rápido'],md:['Cola o documento da Persona Gen','Preenche nicho, avatar e dor'],lpaste:'Persona (cole o documento) *',lfniche:'Nicho / mercado *',lfavatar:'Nome do avatar',lfpain:'Principal dor *',lfdesire:'Principal desejo',lplat:'Plataforma',lfunnel:'Etapa do funil',ltopic:'Assunto do conteúdo *',lhookedit:'Edite o gancho antes de gerar:',lextra:'Observações extras (CTA, produto, tom...)',pb:['TikTok / Reels','Stories'],fb:['Topo','Meio','Fundo'],fs:['Alcance e awareness','Engajamento e nutrição','Conversão e venda'],next:'Continuar →',back:'← Voltar',gen_btn:'Gerar Roteiro →',loading:'Gerando seu roteiro completo… pode levar ~20s',res_title:'Seu Roteiro',copy:'Copiar tudo',copied:'Copiado!',restart:'+ Novo roteiro',e0:'Preencha a persona antes de continuar.',e1:'Informe o assunto do conteúdo.',hooks:HOOKS_PT,fmts:FMTS_PT,
+  sys(date){return`Você é especialista em criação de roteiros para TikTok, Reels e Stories. Data: ${date}. Gere um roteiro COMPLETO e PRONTO PARA GRAVAR em português brasileiro. Para Reels/TikTok: use marcações [CENA N], falas exatas palavra por palavra, duração sugerida de cada cena, transições e CTA final convincente. Para Stories: numere cada slide com texto exato (máx 3 linhas) e instrução visual detalhada. Use linguagem natural, conversacional, nada corporativo. Adapte o tom ao funil informado. Responda SOMENTE com o roteiro completo, sem introdução.`}},
+  en:{ey:['STEP 1 / 5','STEP 2 / 5','STEP 3 / 5','STEP 4 / 5','STEP 5 / 5'],h:['How to insert the persona?','Platform &amp; funnel','Choose your hook','Recording format','Final details'],sub:['Choose how you prefer to insert the persona.','Where will you publish and what funnel stage.','The hook is what grabs attention in the first 3 seconds.','How the content will be recorded and presented.','Any additional details for the script.'],mc:['Paste persona','Quick fill'],md:['Paste the Persona Gen document','Fill in niche, avatar and pain'],lpaste:'Persona (paste document) *',lfniche:'Niche / market *',lfavatar:'Avatar name',lfpain:'Main pain *',lfdesire:'Main desire',lplat:'Platform',lfunnel:'Funnel stage',ltopic:'Content topic *',lhookedit:'Edit the hook before generating:',lextra:'Extra notes (CTA, product, tone...)',pb:['TikTok / Reels','Stories'],fb:['Top','Mid','Bottom'],fs:['Reach &amp; awareness','Engagement &amp; nurturing','Conversion &amp; sales'],next:'Continue →',back:'← Back',gen_btn:'Generate Script →',loading:'Generating your complete script… may take ~20s',res_title:'Your Script',copy:'Copy all',copied:'Copied!',restart:'+ New script',e0:'Fill in the persona before continuing.',e1:'Enter the content topic.',hooks:HOOKS_EN,fmts:FMTS_EN,
+  sys(date){return`You are an expert in creating scripts for TikTok, Reels and Stories. Date: ${date}. Generate a COMPLETE and READY TO RECORD script in English. For Reels/TikTok: use [SCENE N] markers, exact word-for-word lines, suggested scene duration, transitions and convincing final CTA. For Stories: number each slide with exact text (max 3 lines) and detailed visual instruction. Use natural, conversational language, nothing corporate. Adapt tone to the funnel stage. Respond ONLY with the complete script, no introduction.`}},
+  es:{ey:['PASO 1 / 5','PASO 2 / 5','PASO 3 / 5','PASO 4 / 5','PASO 5 / 5'],h:['¿Cómo insertar la persona?','Plataforma y embudo','Elige el gancho','Formato de grabación','Detalles finales'],sub:['Elige cómo prefieres insertar la persona.','Dónde publicarás y qué etapa del embudo.','El gancho es lo que engancha en los primeros 3 segundos.','Cómo se grabará y presentará el contenido.','Algún detalle adicional para el guión.'],mc:['Pegar persona','Rellenar rápido'],md:['Pega el documento de Persona Gen','Rellena nicho, avatar y dolor'],lpaste:'Persona (pega el documento) *',lfniche:'Nicho / mercado *',lfavatar:'Nombre del avatar',lfpain:'Dolor principal *',lfdesire:'Deseo principal',lplat:'Plataforma',lfunnel:'Etapa del embudo',ltopic:'Tema del contenido *',lhookedit:'Edita el gancho antes de generar:',lextra:'Notas extra (CTA, producto, tono...)',pb:['TikTok / Reels','Stories'],fb:['Tope','Medio','Fondo'],fs:['Alcance y awareness','Engagement y nutrición','Conversión y venta'],next:'Continuar →',back:'← Volver',gen_btn:'Generar Guión →',loading:'Generando tu guión completo… puede tardar ~20s',res_title:'Tu Guión',copy:'Copiar todo',copied:'¡Copiado!',restart:'+ Nuevo guión',e0:'Completa la persona antes de continuar.',e1:'Ingresa el tema del contenido.',hooks:HOOKS_ES,fmts:FMTS_ES,
+  sys(date){return`Eres experto en creación de guiones para TikTok, Reels y Stories. Fecha: ${date}. Genera un guión COMPLETO y LISTO PARA GRABAR en español. Para Reels/TikTok: usa marcadores [ESCENA N], líneas exactas palabra por palabra, duración sugerida de cada escena, transiciones y CTA final convincente. Para Stories: numera cada slide con texto exacto (máx 3 líneas) e instrucción visual detallada. Usa lenguaje natural, conversacional, nada corporativo. Adapta el tono a la etapa del embudo. Responde SOLO con el guión completo, sin introducción.`}}
+};
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+function s(id,v){const e=document.getElementById(id);if(e)e.textContent=v||''}
+function setLang(l,btn){lang=l;document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');applyAll();buildHookTabs();buildFmtTabs()}
+function go(n){document.getElementById('s'+cur).classList.remove('on');cur=n;document.getElementById('s'+n).classList.add('on');if(n===2)buildHookTabs();if(n===3)buildFmtTabs();updPg();window.scrollTo({top:0,behavior:'smooth'})}
+function validate(step){
+  const tx=TX[lang];
+  if(step===0){
+    if(selMode==='paste'&amp;&amp;!document.getElementById('f-paste').value.trim()){flash('f-paste');toast(tx.e0);return}
+    if(selMode==='fields'&amp;&amp;!document.getElementById('f-fniche').value.trim()&amp;&amp;!document.getElementById('f-fpain').value.trim()){toast(tx.e0);return}
+    go(1);return;
+  }
+  if(step===1){if(!document.getElementById('f-topic').value.trim()){flash('f-topic');toast(tx.e1);return}go(2);return}
+}
+function flash(id){const el=document.getElementById(id);if(!el)return;el.classList.add('field-err');setTimeout(()=>el.classList.remove('field-err'),2500)}
+function updPg(){const pct=Math.round((cur/4)*100);document.getElementById('pgfill').style.width=pct+'%';document.getElementById('pgstep').textContent=TX[lang].ey[cur]||'';document.getElementById('pgpct').textContent=pct+'%'}
+function applyAll(){const tx=TX[lang];for(let i=0;i<5;i++){s('ey'+i,tx.ey[i]);s('h'+i,tx.h[i]);s('sb'+i,tx.sub[i])}for(let i=0;i<2;i++){s('mc'+i,tx.mc[i]);s('md'+i,tx.md[i])}['paste','fniche','favatar','fpain','fdesire','plat','funnel','topic','extra','hookedit'].forEach(k=>{const el=document.getElementById('l-'+k);if(el)el.textContent=tx['l'+k]||''});for(let i=0;i<2;i++){s('pb-'+['reels','stories'][i],tx.pb[i])}['top','mid','bot'].forEach((k,i)=>{s('fb-'+k,tx.fb[i]);s('fs-'+k,tx.fs[i])});for(let i=1;i<=4;i++){s('n'+i,tx.next);s('bk'+i,tx.back)}s('n0',tx.next);s('genbtn',tx.gen_btn);s('loading-txt',tx.loading);s('res-title',tx.res_title);const cb=document.getElementById('copybtn');if(cb)cb.textContent=tx.copy;const rb=document.getElementById('restartbtn');if(rb)rb.textContent=tx.restart;// restore active states
+document.querySelector('.plat-btn.on')?.classList.remove('on');document.querySelectorAll('.plat-btn')[selPlat==='reels'?0:1]?.classList.add('on');document.querySelectorAll('.funnel-btn').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.funnel-btn')[{top:0,mid:1,bot:2}[selFunnel]||0]?.classList.add('on');updPg()}
+function pickMode(m,btn){selMode=m;document.querySelectorAll('.mcard').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById('paste-area').style.display=m==='paste'?'block':'none';document.getElementById('fields-area').style.display=m==='fields'?'block':'none'}
+function pickPlat(p,btn){selPlat=p;document.querySelectorAll('.plat-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+function pickFunnel(f,btn){selFunnel=f;document.querySelectorAll('.funnel-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+function buildHookTabs(){const hooks=TX[lang].hooks;const cats=Object.keys(hooks);if(!selHookCat||!cats.includes(selHookCat))selHookCat=cats[0];document.getElementById('hook-tabs').innerHTML=cats.map(c=>`<button class=&quot;tab-btn${c===selHookCat?' on':''}&quot; onclick=&quot;switchHookCat('${c}',this)&quot;>${c}</button>`).join('');buildHookGrid()}
+function switchHookCat(cat,btn){selHookCat=cat;document.querySelectorAll('#hook-tabs .tab-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');buildHookGrid()}
+function buildHookGrid(){const hooks=TX[lang].hooks[selHookCat]||[];document.getElementById('hook-grid').innerHTML=hooks.map(h=>`<button class=&quot;hook-item${h===selHook?' on':''}&quot; onclick=&quot;pickHook(this,'${h.replace(/'/g,&quot;\\'&quot;)}',event)&quot;>${h}</button>`).join('')}
+function pickHook(btn,h,ev){selHook=h;document.querySelectorAll('.hook-item').forEach(b=>b.classList.remove('on'));btn.classList.add('on');// show edit box with selected hook
+const box=document.getElementById('hook-edit-box');const ta=document.getElementById('f-hookedit');box.classList.add('on');ta.value=h;}
+function buildFmtTabs(){const fmts=TX[lang].fmts;const cats=Object.keys(fmts);if(!selFmtCat||!cats.includes(selFmtCat))selFmtCat=cats[0];document.getElementById('fmt-tabs').innerHTML=cats.map(c=>`<button class=&quot;tab-btn${c===selFmtCat?' on':''}&quot; onclick=&quot;switchFmtCat('${c}',this)&quot;>${c}</button>`).join('');buildFmtChips()}
+function switchFmtCat(cat,btn){selFmtCat=cat;document.querySelectorAll('#fmt-tabs .tab-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');buildFmtChips()}
+function buildFmtChips(){const fmts=TX[lang].fmts[selFmtCat]||[];document.getElementById('fmt-chips').innerHTML=fmts.map(f=>`<button class=&quot;chip${f===selFmt?' on':''}&quot; onclick=&quot;pickFmt(this,'${f.replace(/'/g,&quot;\\'&quot;)}')&quot;>${f}</button>`).join('')}
+function pickFmt(btn,f){selFmt=f;document.querySelectorAll('#fmt-chips .chip').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+function nowDate(){return new Date().toLocaleDateString(lang==='pt'?'pt-BR':lang==='es'?'es-ES':'en-US',{day:'2-digit',month:'long',year:'numeric'})}
+async function generateScript(){
+  let persona='';
+  if(selMode==='paste'){persona=document.getElementById('f-paste').value||''}
+  else{const ni=document.getElementById('f-fniche').value,av=document.getElementById('f-favatar').value,pa=document.getElementById('f-fpain').value,de=document.getElementById('f-fdesire').value;persona=`Nicho: ${ni}\nAvatar: ${av||'Não informado'}\nDor: ${pa}\nDesejo: ${de||'Não informado'}`}
+  const topic=document.getElementById('f-topic').value;
+  const extra=document.getElementById('f-extra').value;
+  // use edited hook if user modified, otherwise original selection
+  const hookEdited=document.getElementById('f-hookedit').value.trim();
+  const hookFinal=hookEdited||selHook||'(Livre — crie um gancho criativo)';
+  const platLabel=TX[lang].pb[selPlat==='reels'?0:1];
+  const funnelIdx={top:0,mid:1,bot:2}[selFunnel]??0;
+  const funnelLabel=TX[lang].fb[funnelIdx]+' — '+TX[lang].fs[funnelIdx];
+  const btn=document.getElementById('genbtn');btn.disabled=true;
+  document.getElementById('steps').style.display='none';
+  document.getElementById('result').classList.add('on');
+  document.getElementById('spin-wrap').style.display='flex';
+  document.getElementById('doc').style.display='none';
+  document.getElementById('res-acts').style.display='none';
+  const msg=`PERSONA:\n${persona}\n\nPLATAFORMA: ${platLabel}\nFUNIL: ${funnelLabel}\nASSUNTO: ${topic}\nGANCHO ESCOLHIDO: ${hookFinal}\nFORMATO: ${selFmt||'Livre'}\nOBSERVAÇÕES: ${extra||'Nenhuma'}`;
+  try{
+    const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,system:TX[lang].sys(nowDate()),messages:[{role:'user',content:msg}]})});
+    const d=await r.json();
+    const txt=d.content?.map(b=>b.text||'').join('')||'Erro ao gerar.';
+    document.getElementById('spin-wrap').style.display='none';
+    const doc=document.getElementById('doc');doc.textContent=txt;doc.style.display='block';
+    document.getElementById('res-acts').style.display='flex';
+  }catch(e){
+    document.getElementById('spin-wrap').style.display='none';
+    const doc=document.getElementById('doc');doc.textContent='Erro de conexão. Tente novamente.';doc.style.display='block';
+    document.getElementById('res-acts').style.display='flex';
+    btn.disabled=false;
+  }
+}
+function copySc(){navigator.clipboard.writeText(document.getElementById('doc').textContent).then(()=>{const btn=document.getElementById('copybtn');btn.textContent=TX[lang].copied;setTimeout(()=>btn.textContent=TX[lang].copy,2000)})}
+function restart(){cur=0;selHook='';selFmt='';selFunnel='top';selPlat='reels';selMode='paste';document.getElementById('steps').style.display='block';document.getElementById('result').classList.remove('on');document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));document.getElementById('s0').classList.add('on');document.getElementById('genbtn').disabled=false;document.getElementById('hook-edit-box').classList.remove('on');document.getElementById('f-hookedit').value='';document.getElementById('paste-area').style.display='block';document.getElementById('fields-area').style.display='none';document.getElementById('mc-paste').classList.add('on');document.getElementById('mc-fields').classList.remove('on');['f-paste','f-fniche','f-favatar','f-fpain','f-fdesire','f-topic','f-extra'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});applyAll();window.scrollTo({top:0,behavior:'smooth'})}
+applyAll();
+</script>
+</body>
+</html>
+" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+</div>
+<div class="panel" id="panel-stories">
+  <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;pt&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;>
+<title>CreatorKit — Stories Gen</title>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Sans:wght@300;400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+:root{--bg:#0A060F;--surf:#110C1A;--bd:rgba(255,255,255,0.07);--bd-h:rgba(247,37,120,0.5);--tx:#FFE8F4;--tx2:#7A5470;--tx3:#3D2640;--ac:#F72578;--ac-g:rgba(247,37,120,0.13);--ac-gs:rgba(247,37,120,0.3);--ac-d:rgba(247,37,120,0.07)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.app{max-width:640px;margin:0 auto;padding:2rem 1.25rem 5rem}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.75rem}
+.logo{display:flex;align-items:center;gap:10px}
+.lmark{width:36px;height:36px;border-radius:10px;background:var(--ac);display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px var(--ac-gs),0 0 60px rgba(247,37,120,0.1)}
+.lname strong{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:-.02em;display:block;line-height:1}
+.lname small{font-size:10px;color:var(--ac);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;display:block}
+.langs{display:flex;gap:3px;background:var(--surf);border-radius:8px;padding:3px;border:1px solid var(--bd)}
+.lb{padding:4px 9px;font-size:11px;font-weight:500;border:none;background:transparent;color:var(--tx2);border-radius:5px;cursor:pointer;transition:all .2s;letter-spacing:.04em;font-family:'DM Sans',sans-serif}
+.lb.on{background:var(--ac);color:#fff}
+.pg-wrap{margin-bottom:2rem}
+.pg-track{height:2px;background:var(--bd);border-radius:2px;margin-bottom:10px;overflow:hidden}
+.pg-fill{height:100%;background:var(--ac);border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--ac)}
+.pg-info{display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);letter-spacing:.04em}
+.step{display:none}.step.on{display:block;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:11px;color:var(--ac);font-weight:500;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.sh{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.035em;line-height:1.15;margin-bottom:7px}
+.ss{font-size:14px;color:var(--tx2);margin-bottom:1.75rem;line-height:1.65}
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.75rem}
+.obj-card{border:1px solid var(--bd);border-radius:14px;padding:1rem 1.125rem;background:var(--surf);cursor:pointer;text-align:left;transition:all .2s;width:100%}
+.obj-card:hover{border-color:var(--bd-h);background:var(--ac-d)}
+.obj-card.on{border-color:var(--ac);background:var(--ac-d);box-shadow:0 0 0 1px var(--ac),0 0 20px var(--ac-g)}
+.obj-ico{width:30px;height:30px;border-radius:8px;background:var(--ac-d);border:1px solid rgba(247,37,120,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:8px;font-size:14px}
+.obj-card b{font-size:13.5px;font-weight:500;display:block;margin-bottom:3px;color:var(--tx)}
+.obj-card span{font-size:12px;color:var(--tx2);line-height:1.4;display:block}
+.fl{margin-bottom:1.125rem}
+.fl label{display:block;font-size:11.5px;font-weight:500;color:var(--tx2);margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+input,select,textarea{width:100%;background:var(--surf);border:1px solid var(--bd);border-radius:10px;padding:11px 14px;font-size:14px;color:var(--tx);font-family:'DM Sans',sans-serif;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac-g)}
+.field-err{border-color:#f87171!important;box-shadow:0 0 0 3px rgba(248,113,113,0.15)!important}
+::placeholder{color:var(--tx3)}
+textarea{min-height:90px;resize:vertical}
+select{background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A5470' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.chip{padding:6px 14px;border:1px solid var(--bd);border-radius:99px;font-size:13px;color:var(--tx2);background:var(--surf);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.chip.on{border-color:var(--ac);color:var(--ac);background:var(--ac-d)}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--bd)}
+.btn{padding:11px 22px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:none}
+.btn-p{background:var(--ac);color:#fff;box-shadow:0 0 20px var(--ac-gs)}
+.btn-p:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 28px var(--ac-gs)}
+.btn-p:disabled{opacity:.5;cursor:not-allowed}
+.btn-g{background:transparent;color:var(--tx2);border:1px solid var(--bd)}
+.btn-g:hover{border-color:var(--bd-h);color:var(--tx)}
+.res{display:none}.res.on{display:block;animation:fi .3s ease}
+.res-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;gap:10px;flex-wrap:wrap}
+.res-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800}
+.res-btns{display:flex;gap:8px}
+.spin-wrap{display:flex;align-items:center;gap:12px;padding:3rem 0}
+.spin{width:18px;height:18px;border:2px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:sp .7s linear infinite;box-shadow:0 0 10px var(--ac-g);flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
+.slides-wrap{display:flex;flex-direction:column;gap:10px}
+.slide-card{border:1px solid var(--bd);border-radius:14px;overflow:hidden;background:var(--surf)}
+.slide-hdr{display:flex;align-items:center;gap:10px;padding:.75rem 1rem;border-bottom:1px solid var(--bd)}
+.slide-num{width:26px;height:26px;border-radius:50%;background:var(--ac-d);border:1px solid rgba(247,37,120,0.25);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--ac);flex-shrink:0}
+.slide-lbl{font-size:13px;font-weight:500;color:var(--tx)}
+.slide-body{display:grid;grid-template-columns:1fr 1fr}
+.slide-txt,.slide-art{padding:1rem}
+.slide-txt{border-right:1px solid var(--bd)}
+.slide-art{background:rgba(0,0,0,0.15)}
+.sect-lbl{font-size:10px;letter-spacing:.1em;color:var(--tx3);margin-bottom:6px;display:block;text-transform:uppercase}
+.slide-content,.slide-art-content{font-size:13px;line-height:1.65;color:var(--tx);white-space:pre-wrap}
+.slide-art-content{color:var(--tx2)}
+.res-acts{display:none;gap:10px;margin-top:1rem}
+.tool-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--ac-d);border:1px solid rgba(247,37,120,0.16);border-radius:99px;font-size:10.5px;color:var(--ac);font-weight:500;letter-spacing:.06em;margin-bottom:1.5rem}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a060f;border:1px solid rgba(248,113,113,0.4);border-radius:10px;padding:10px 18px;font-size:13px;color:#f87171;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:480px){.slide-body{grid-template-columns:1fr}.slide-txt{border-right:none;border-bottom:1px solid var(--bd)}.obj-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class=&quot;toast&quot; id=&quot;toast&quot;></div>
+<div class=&quot;app&quot;>
+  <div class=&quot;hdr&quot;>
+    <div class=&quot;logo&quot;>
+      <div class=&quot;lmark&quot;><svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 18 18&quot; fill=&quot;none&quot;><rect x=&quot;3&quot; y=&quot;2&quot; width=&quot;5&quot; height=&quot;14&quot; rx=&quot;2&quot; fill=&quot;rgba(255,255,255,0.25)&quot;/><rect x=&quot;10&quot; y=&quot;2&quot; width=&quot;5&quot; height=&quot;14&quot; rx=&quot;2&quot; fill=&quot;rgba(255,255,255,0.15)&quot;/></svg></div>
+      <div class=&quot;lname&quot;><strong>CreatorKit</strong><small>Stories Gen</small></div>
+    </div>
+    <div class=&quot;langs&quot;>
+      <button class=&quot;lb on&quot; onclick=&quot;setLang('pt',this)&quot;>PT</button>
+      <button class=&quot;lb&quot; onclick=&quot;setLang('en',this)&quot;>EN</button>
+      <button class=&quot;lb&quot; onclick=&quot;setLang('es',this)&quot;>ES</button>
+    </div>
+  </div>
+  <div class=&quot;pg-wrap&quot;>
+    <div class=&quot;pg-track&quot;><div class=&quot;pg-fill&quot; id=&quot;pgfill&quot; style=&quot;width:0%&quot;></div></div>
+    <div class=&quot;pg-info&quot;><span id=&quot;pgstep&quot;></span><span id=&quot;pgpct&quot;></span></div>
+  </div>
+  <div id=&quot;steps&quot;>
+    <div class=&quot;step on&quot; id=&quot;s0&quot;>
+      <div class=&quot;tool-tag&quot;>▪ Stories Gen</div>
+      <p class=&quot;eyebrow&quot; id=&quot;ey0&quot;></p><h2 class=&quot;sh&quot; id=&quot;h0&quot;></h2><p class=&quot;ss&quot; id=&quot;sb0&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-persona&quot;></label><textarea id=&quot;f-persona&quot; style=&quot;min-height:120px&quot;></textarea></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-topic&quot;></label><input id=&quot;f-topic&quot; type=&quot;text&quot;/></div>
+      <div class=&quot;nav&quot;><span></span><button class=&quot;btn btn-p&quot; onclick=&quot;validate(0)&quot; id=&quot;n0&quot;></button></div>
+    </div>
+    <div class=&quot;step&quot; id=&quot;s1&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey1&quot;></p><h2 class=&quot;sh&quot; id=&quot;h1&quot;></h2><p class=&quot;ss&quot; id=&quot;sb1&quot;></p>
+      <div class=&quot;obj-grid&quot; id=&quot;obj-grid&quot;></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(0)&quot; id=&quot;bk1&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;go(2)&quot; id=&quot;n1&quot;></button></div>
+    </div>
+    <div class=&quot;step&quot; id=&quot;s2&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey2&quot;></p><h2 class=&quot;sh&quot; id=&quot;h2&quot;></h2><p class=&quot;ss&quot; id=&quot;sb2&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-slides&quot;></label><div class=&quot;chips&quot; id=&quot;slides-chips&quot;></div></div>
+      <div class=&quot;fl&quot; style=&quot;margin-top:1rem&quot;><label id=&quot;l-tom&quot;></label><div class=&quot;chips&quot; id=&quot;tom-chips&quot;></div></div>
+      <div class=&quot;fl&quot; style=&quot;margin-top:1rem&quot;><label id=&quot;l-cta&quot;></label><input id=&quot;f-cta&quot; type=&quot;text&quot;/></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(1)&quot; id=&quot;bk2&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;validate(2)&quot; id=&quot;n2&quot;></button></div>
+    </div>
+    <div class=&quot;step&quot; id=&quot;s3&quot;>
+      <p class=&quot;eyebrow&quot; id=&quot;ey3&quot;></p><h2 class=&quot;sh&quot; id=&quot;h3&quot;></h2><p class=&quot;ss&quot; id=&quot;sb3&quot;></p>
+      <div class=&quot;fl&quot;><label id=&quot;l-offer&quot;></label><input id=&quot;f-offer&quot; type=&quot;text&quot;/></div>
+      <div class=&quot;fl&quot;><label id=&quot;l-extra&quot;></label><textarea id=&quot;f-extra&quot;></textarea></div>
+      <div class=&quot;nav&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;go(2)&quot; id=&quot;bk3&quot;></button><button class=&quot;btn btn-p&quot; onclick=&quot;generateStories()&quot; id=&quot;genbtn&quot;></button></div>
+    </div>
+  </div>
+  <div class=&quot;res&quot; id=&quot;result&quot;>
+    <div class=&quot;res-top&quot;>
+      <h2 class=&quot;res-title&quot; id=&quot;res-title&quot;></h2>
+      <div class=&quot;res-btns&quot;><button class=&quot;btn btn-g&quot; onclick=&quot;copyAll()&quot; id=&quot;copybtn&quot;></button><button class=&quot;btn btn-g&quot; onclick=&quot;restart()&quot; id=&quot;restartbtn&quot;></button></div>
+    </div>
+    <div class=&quot;spin-wrap&quot; id=&quot;spin-wrap&quot;><div class=&quot;spin&quot;></div><span id=&quot;loading-txt&quot; style=&quot;font-size:14px;color:var(--tx2)&quot;></span></div>
+    <div class=&quot;slides-wrap&quot; id=&quot;slides-wrap&quot;></div>
+    <div class=&quot;res-acts&quot; id=&quot;res-acts&quot;></div>
+  </div>
+</div>
+<script>
+const API_URL = &quot;https://creatorkit-backend-nnlg.onrender.com/api/chat&quot;;
+let lang='pt',cur=0,selObj='',selSlides='7',selTom='',parsedSlides=[];
+const TX={
+pt:{ey:['PASSO 1 / 4','PASSO 2 / 4','PASSO 3 / 4','PASSO 4 / 4'],h:['Persona e contexto','Objetivo da sequência','Quantidade e tom','Detalhes finais'],sub:['Cole a persona ou descreva para quem é essa sequência.','O que você quer que o seguidor sinta ou faça?','Quantos slides e como você quer se comunicar.','Algum elemento específico que precisa aparecer.'],lpersona:'Persona / Avatar (cole ou descreva) *',ltopic:'Assunto da sequência *',lobjs:['Vender / Converter','Engajar','Nutrir / Educar','Gerar Autoridade','Aquecer Lead Frio','Lançamento / Evento'],lobjd:['CTA para DM, link ou oferta','Resposta, enquete, reação','Conteúdo de valor, dica','Bastidor, prova, resultado','Reconexão, retomar interesse','Divulgar produto, imersão'],lobjico:['◆','●','◎','✦','◇','★'],lslides:'Número de slides',ltom:'Tom de comunicação *',lcta:'CTA final (ex: Manda DM &quot;QUERO&quot;, clique no link da bio...)',loffer:'Produto ou oferta (opcional)',lextra:'Observações adicionais (opcional)',slides:['5','7','10','12'],slidesLbl:['5 slides','7 slides','10 slides','12 slides'],toms:['Direto e objetivo','Emocional e empático','Didático e educativo','Urgente e provocativo','Descontraído e leve'],next:'Continuar →',back:'← Voltar',gen_btn:'Gerar Stories →',loading:'Criando sua sequência de stories… pode levar ~25s',res_title:'Sua Sequência',copy:'Copiar tudo',copied:'Copiado!',restart:'+ Nova sequência',e0:'Preencha a persona e o assunto.',e2:'Selecione o tom de comunicação.',tsect:'TEXTO DO SLIDE',asect:'SUGESTÃO DE ARTE',
+sys(n,date){return`Você é especialista em Instagram Stories. Data: ${date}. Crie uma sequência de ${n} stories em português brasileiro. Retorne APENAS um array JSON válido, sem texto antes ou depois, sem markdown, sem blocos de código. Formato exato:\n[{&quot;num&quot;:1,&quot;label&quot;:&quot;Gancho&quot;,&quot;text&quot;:&quot;texto exato do slide (máx 3 linhas)&quot;,&quot;art&quot;:&quot;instrução visual detalhada: cor de fundo, imagem/vídeo, stickers, layout, emojis&quot;},{&quot;num&quot;:2,...},...]\nRegras:\n- Slide 1: gancho forte que gere curiosidade\n- Último slide: CTA claro e direto\n- Textos curtos, máximo 3 linhas por slide\n- Arte deve ser prática e executável por qualquer criador\n- Linguagem natural, não corporativa\n- Retorne SOMENTE o array JSON, nada mais.`}},
+en:{ey:['STEP 1 / 4','STEP 2 / 4','STEP 3 / 4','STEP 4 / 4'],h:['Persona &amp; context','Sequence objective','Quantity &amp; tone','Final details'],sub:['Paste the persona or describe who this sequence is for.','What do you want the follower to feel or do?','How many slides and how do you want to communicate.','Any specific element that needs to appear.'],lpersona:'Persona / Avatar (paste or describe) *',ltopic:'Sequence topic *',lobjs:['Sell / Convert','Engage','Nurture / Educate','Build Authority','Warm Cold Lead','Launch / Event'],lobjd:['CTA to DM, link or offer','Reply, poll, reaction','Value content, tip','Behind scenes, proof, result','Reconnect, resume interest','Promote product, event'],lobjico:['◆','●','◎','✦','◇','★'],lslides:'Number of slides',ltom:'Communication tone *',lcta:'Final CTA (e.g., DM me &quot;I WANT&quot;, click link in bio...)',loffer:'Product or offer (optional)',lextra:'Additional notes (optional)',slides:['5','7','10','12'],slidesLbl:['5 slides','7 slides','10 slides','12 slides'],toms:['Direct and objective','Emotional and empathetic','Didactic and educational','Urgent and provocative','Relaxed and light'],next:'Continue →',back:'← Back',gen_btn:'Generate Stories →',loading:'Creating your stories sequence… may take ~25s',res_title:'Your Sequence',copy:'Copy all',copied:'Copied!',restart:'+ New sequence',e0:'Fill in the persona and topic.',e2:'Select a communication tone.',tsect:'SLIDE TEXT',asect:'ART SUGGESTION',
+sys(n,date){return`You are an Instagram Stories expert. Date: ${date}. Create a sequence of ${n} stories in English. Return ONLY a valid JSON array, no text before or after, no markdown, no code blocks. Exact format:\n[{&quot;num&quot;:1,&quot;label&quot;:&quot;Hook&quot;,&quot;text&quot;:&quot;exact slide text (max 3 lines)&quot;,&quot;art&quot;:&quot;detailed visual instruction: background color, image/video, stickers, layout, emojis&quot;},{&quot;num&quot;:2,...},...]\nRules:\n- Slide 1: strong hook that creates curiosity\n- Last slide: clear and direct CTA\n- Short texts, max 3 lines per slide\n- Art must be practical and executable by any creator\n- Natural, non-corporate language\n- Return ONLY the JSON array, nothing else.`}},
+es:{ey:['PASO 1 / 4','PASO 2 / 4','PASO 3 / 4','PASO 4 / 4'],h:['Persona y contexto','Objetivo de la secuencia','Cantidad y tono','Detalles finales'],sub:['Pega la persona o describe para quién es esta secuencia.','¿Qué quieres que el seguidor sienta o haga?','¿Cuántos slides y cómo quieres comunicarte?','Algún elemento específico que deba aparecer.'],lpersona:'Persona / Avatar (pega o describe) *',ltopic:'Tema de la secuencia *',lobjs:['Vender / Convertir','Enganchar','Nutrir / Educar','Generar Autoridad','Calentar Lead Frío','Lanzamiento / Evento'],lobjd:['CTA a DM, enlace u oferta','Respuesta, encuesta, reacción','Contenido de valor, consejo','Bastidores, prueba, resultado','Reconexión, retomar interés','Promocionar producto, evento'],lobjico:['◆','●','◎','✦','◇','★'],lslides:'Número de slides',ltom:'Tono de comunicación *',lcta:'CTA final (ej: Escríbeme &quot;QUIERO&quot;, haz clic en el bio...)',loffer:'Producto u oferta (opcional)',lextra:'Notas adicionales (opcional)',slides:['5','7','10','12'],slidesLbl:['5 slides','7 slides','10 slides','12 slides'],toms:['Directo y objetivo','Emocional y empático','Didáctico y educativo','Urgente y provocativo','Relajado y ligero'],next:'Continuar →',back:'← Volver',gen_btn:'Generar Stories →',loading:'Creando tu secuencia de stories… puede tardar ~25s',res_title:'Tu Secuencia',copy:'Copiar todo',copied:'¡Copiado!',restart:'+ Nueva secuencia',e0:'Completa la persona y el tema.',e2:'Selecciona un tono de comunicación.',tsect:'TEXTO DEL SLIDE',asect:'SUGERENCIA DE ARTE',
+sys(n,date){return`Eres experto en Instagram Stories. Fecha: ${date}. Crea una secuencia de ${n} stories en español. Retorna SOLO un array JSON válido, sin texto antes o después, sin markdown, sin bloques de código. Formato exacto:\n[{&quot;num&quot;:1,&quot;label&quot;:&quot;Gancho&quot;,&quot;text&quot;:&quot;texto exacto del slide (máx 3 líneas)&quot;,&quot;art&quot;:&quot;instrucción visual detallada: color de fondo, imagen/video, stickers, layout, emojis&quot;},{&quot;num&quot;:2,...},...]\nReglas:\n- Slide 1: gancho fuerte que genere curiosidad\n- Último slide: CTA claro y directo\n- Textos cortos, máximo 3 líneas por slide\n- Arte debe ser práctica y ejecutable por cualquier creador\n- Lenguaje natural, no corporativo\n- Retorna SOLO el array JSON, nada más.`}}
+};
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+function s(id,v){const e=document.getElementById(id);if(e)e.textContent=v||''}
+function setLang(l,btn){lang=l;document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');applyAll()}
+function go(n){document.getElementById('s'+cur).classList.remove('on');cur=n;document.getElementById('s'+n).classList.add('on');updPg();window.scrollTo({top:0,behavior:'smooth'})}
+function validate(step){
+  const tx=TX[lang];
+  if(step===0){
+    const p=document.getElementById('f-persona').value.trim();
+    const t=document.getElementById('f-topic').value.trim();
+    if(!p||!t){if(!p)flash('f-persona');if(!t)flash('f-topic');toast(tx.e0);return}
+    go(1);return;
+  }
+  if(step===2){if(!selTom){toast(tx.e2);return}go(3);return}
+}
+function flash(id){const el=document.getElementById(id);if(!el)return;el.classList.add('field-err');setTimeout(()=>el.classList.remove('field-err'),2500)}
+function updPg(){const pct=Math.round((cur/3)*100);document.getElementById('pgfill').style.width=pct+'%';document.getElementById('pgstep').textContent=TX[lang].ey[cur]||'';document.getElementById('pgpct').textContent=pct+'%'}
+function applyAll(){const tx=TX[lang];for(let i=0;i<4;i++){s('ey'+i,tx.ey[i]);s('h'+i,tx.h[i]);s('sb'+i,tx.sub[i])}s('l-persona',tx.lpersona);s('l-topic',tx.ltopic);s('l-slides',tx.lslides);s('l-tom',tx.ltom);s('l-cta',tx.lcta);s('l-offer',tx.loffer);s('l-extra',tx.lextra);buildObjs();buildSlideChips();buildTomChips();for(let i=1;i<=3;i++){s('n'+i,tx.next);s('bk'+i,tx.back)}s('n0',tx.next);s('genbtn',tx.gen_btn);s('loading-txt',tx.loading);s('res-title',tx.res_title);const cb=document.getElementById('copybtn');if(cb)cb.textContent=tx.copy;const rb=document.getElementById('restartbtn');if(rb)rb.textContent=tx.restart;updPg()}
+function buildObjs(){const tx=TX[lang];document.getElementById('obj-grid').innerHTML=tx.lobjs.map((o,i)=>`<button class=&quot;obj-card${selObj===o?' on':''}&quot; onclick=&quot;pickObj('${o.replace(/'/g,&quot;\\'&quot;)}',this)&quot;><div class=&quot;obj-ico&quot;>${tx.lobjico[i]}</div><b>${o}</b><span>${tx.lobjd[i]}</span></button>`).join('')}
+function pickObj(v,btn){selObj=v;document.querySelectorAll('.obj-card').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+function buildSlideChips(){const tx=TX[lang];document.getElementById('slides-chips').innerHTML=tx.slidesLbl.map((sl,i)=>`<button class=&quot;chip${selSlides===tx.slides[i]?' on':''}&quot; onclick=&quot;pickSlides('${tx.slides[i]}',this)&quot;>${sl}</button>`).join('')}
+function pickSlides(v,btn){selSlides=v;document.querySelectorAll('#slides-chips .chip').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+function buildTomChips(){const tx=TX[lang];document.getElementById('tom-chips').innerHTML=tx.toms.map(t=>`<button class=&quot;chip${selTom===t?' on':''}&quot; onclick=&quot;pickTom('${t.replace(/'/g,&quot;\\'&quot;).replace(/\//g,&quot;\\/&quot;)}',this)&quot;>${t}</button>`).join('')}
+function pickTom(v,btn){selTom=v;document.querySelectorAll('#tom-chips .chip').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+function nowDate(){return new Date().toLocaleDateString(lang==='pt'?'pt-BR':lang==='es'?'es-ES':'en-US',{day:'2-digit',month:'long',year:'numeric'})}
+
+function safeParseJSON(raw){
+  // Try direct parse
+  try{return JSON.parse(raw.trim())}catch(e){}
+  // Extract JSON array from response
+  const m=raw.match(/\[[\s\S]*\]/);
+  if(m){try{return JSON.parse(m[0])}catch(e){}}
+  // Fallback: wrap entire response as single slide
+  return [{num:1,label:'Sequência',text:raw.substring(0,500),art:'Consulte o texto completo acima.'}];
+}
+
+function renderSlides(slides){
+  const tx=TX[lang];
+  document.getElementById('slides-wrap').innerHTML=slides.map(sl=>`
+    <div class=&quot;slide-card&quot;>
+      <div class=&quot;slide-hdr&quot;>
+        <div class=&quot;slide-num&quot;>${sl.num}</div>
+        <span class=&quot;slide-lbl&quot;>${sl.label||'Slide '+sl.num}</span>
+      </div>
+      <div class=&quot;slide-body&quot;>
+        <div class=&quot;slide-txt&quot;><span class=&quot;sect-lbl&quot;>${tx.tsect}</span><div class=&quot;slide-content&quot;>${sl.text||'—'}</div></div>
+        <div class=&quot;slide-art&quot;><span class=&quot;sect-lbl&quot;>${tx.asect}</span><div class=&quot;slide-art-content&quot;>${sl.art||'—'}</div></div>
+      </div>
+    </div>`).join('')
+}
+
+async function generateStories(){
+  const persona=document.getElementById('f-persona').value;
+  const topic=document.getElementById('f-topic').value;
+  const cta=document.getElementById('f-cta').value;
+  const offer=document.getElementById('f-offer').value;
+  const extra=document.getElementById('f-extra').value;
+  const btn=document.getElementById('genbtn');btn.disabled=true;
+  document.getElementById('steps').style.display='none';
+  document.getElementById('result').classList.add('on');
+  document.getElementById('spin-wrap').style.display='flex';
+  document.getElementById('slides-wrap').innerHTML='';
+  document.getElementById('res-acts').style.display='none';
+  const msg=`PERSONA: ${persona}\nASSUNTO: ${topic}\nOBJETIVO: ${selObj||'Geral'}\nNÚMERO DE SLIDES: ${selSlides}\nTOM: ${selTom}\nCTA FINAL: ${cta||'À escolha da IA'}\nPRODUTO/OFERTA: ${offer||'Não especificado'}\nOBSERVAÇÕES: ${extra||'Nenhuma'}`;
+  try{
+    const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,system:TX[lang].sys(selSlides,nowDate()),messages:[{role:'user',content:msg}]})});
+    const d=await r.json();
+    const raw=d.content?.map(b=>b.text||'').join('')||'[]';
+    parsedSlides=safeParseJSON(raw);
+    document.getElementById('spin-wrap').style.display='none';
+    renderSlides(parsedSlides);
+    document.getElementById('res-acts').style.display='flex';
+  }catch(e){
+    document.getElementById('spin-wrap').style.display='none';
+    document.getElementById('slides-wrap').innerHTML='<p style=&quot;padding:2rem 0;font-size:14px;color:var(--tx2)&quot;>Erro de conexão. Tente novamente.</p>';
+    document.getElementById('res-acts').style.display='flex';
+    btn.disabled=false;
+  }
+}
+
+function copyAll(){
+  const out=parsedSlides.map(sl=>`SLIDE ${sl.num} — ${sl.label||''}\nTexto: ${sl.text||''}\nArte: ${sl.art||''}`).join('\n\n');
+  navigator.clipboard.writeText(out||'').then(()=>{const btn=document.getElementById('copybtn');btn.textContent=TX[lang].copied;setTimeout(()=>btn.textContent=TX[lang].copy,2000)});
+}
+
+function restart(){
+  cur=0;selObj='';selTom='';parsedSlides=[];selSlides='7';
+  document.getElementById('steps').style.display='block';
+  document.getElementById('result').classList.remove('on');
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('on'));
+  document.getElementById('s0').classList.add('on');
+  document.getElementById('genbtn').disabled=false;
+  ['f-persona','f-topic','f-cta','f-offer','f-extra'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
+  applyAll();window.scrollTo({top:0,behavior:'smooth'});
+}
+applyAll();
+</script>
+</body>
+</html>
+" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+</div>
+<script>
+function show(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('panel-' + name).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>

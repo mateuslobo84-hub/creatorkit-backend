@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CreatorKit — A IA que Conhece Seu Público Melhor Que Você</title>
+<meta name="description" content="Crie personas, roteiros e stories com IA em minutos. Para empreendedores que querem atingir o público certo e vender mais.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080F;
+  --surf:#0C1020;
+  --surf2:#111827;
+  --bd:rgba(255,255,255,0.07);
+  --tx:#EEF2FF;
+  --tx2:#7B86A4;
+  --tx3:#3A4260;
+  --ac1:#A855F7;
+  --ac2:#00D4FF;
+  --ac3:#F72578;
+  --ac4:#00FF94;
+  --ac1g:rgba(168,85,247,0.15);
+  --ac2g:rgba(0,212,255,0.12);
+  --ac3g:rgba(247,37,120,0.12);
+  --ac4g:rgba(0,255,148,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── NOISE TEXTURE ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+
+/* ── GLOW ORBS ── */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.orb1{width:600px;height:600px;background:rgba(168,85,247,0.12);top:-100px;left:-150px}
+.orb2{width:500px;height:500px;background:rgba(0,212,255,0.08);top:200px;right:-200px}
+.orb3{width:400px;height:400px;background:rgba(247,37,120,0.08);top:800px;left:50%;transform:translateX(-50%)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bd);background:rgba(6,8,15,0.85);backdrop-filter:blur(20px)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-mark{width:32px;height:32px;border-radius:9px;background:var(--ac1);display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(168,85,247,0.4)}
+.nav-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;letter-spacing:-.02em}
+.nav-cta{padding:9px 20px;background:var(--ac1);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;box-shadow:0 0 20px rgba(168,85,247,0.3);transition:all .2s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(168,85,247,0.4)}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1}
+.container{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 0 5rem;text-align:center;overflow:hidden}
+.hero-inner{position:relative;z-index:1;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(168,85,247,0.3);border-radius:99px;background:var(--ac1g);font-size:12px;color:var(--ac1);font-weight:500;letter-spacing:.08em;margin-bottom:2rem;animation:fadeUp .6s ease both}
+.hero-badge span{width:6px;height:6px;border-radius:50%;background:var(--ac1);box-shadow:0 0 8px var(--ac1);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:900;letter-spacing:-.04em;line-height:1.05;margin-bottom:1.5rem;animation:fadeUp .6s .1s ease both}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--ac1),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:var(--tx2);max-width:600px;margin:0 auto 2.5rem;line-height:1.7;animation:fadeUp .6s .2s ease both}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+.btn-main{padding:15px 32px;background:var(--ac1);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;box-shadow:0 0 30px rgba(168,85,247,0.35);transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(168,85,247,0.5)}
+.btn-sec{padding:15px 32px;background:transparent;color:var(--tx);border:1px solid var(--bd);border-radius:12px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;transition:all .2s}
+.btn-sec:hover{border-color:rgba(168,85,247,0.4);background:var(--ac1g)}
+.hero-proof{margin-top:3rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;animation:fadeUp .6s .4s ease both}
+.proof-ava{display:flex}
+.proof-ava img,.ava-circle{width:32px;height:32px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px}
+.ava-circle{background:linear-gradient(135deg,var(--ac1),var(--ac2));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.proof-txt{font-size:13px;color:var(--tx2)}
+.proof-txt b{color:var(--tx)}
+.hero-demo{margin-top:4rem;position:relative;animation:fadeUp .6s .5s ease both}
+.demo-frame{background:var(--surf);border:1px solid var(--bd);border-radius:20px;overflow:hidden;max-width:800px;margin:0 auto;box-shadow:0 40px 100px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04)}
+.demo-bar{padding:.75rem 1rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px}
+.demo-dots{display:flex;gap:5px}
+.demo-dot{width:10px;height:10px;border-radius:50%}
+.demo-url{flex:1;background:var(--bg);border-radius:6px;padding:4px 12px;font-size:11px;color:var(--tx3);text-align:center}
+.demo-inner{padding:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:left}
+.demo-card{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:1rem}
+.demo-card-label{font-size:10px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.demo-card-val{font-size:13px;color:var(--tx);line-height:1.55}
+.demo-card-val em{font-style:normal;color:var(--ac1)}
+.demo-card-val.cyan em{color:var(--ac2)}
+.demo-card-val.pink em{color:var(--ac3)}
+.demo-card-val.green em{color:var(--ac4)}
+
+/* ── SECTION HEADERS ── */
+.sec-badge{display:inline-block;padding:4px 12px;border-radius:99px;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.sec-badge.purple{background:var(--ac1g);color:var(--ac1);border:1px solid rgba(168,85,247,0.2)}
+.sec-badge.cyan{background:var(--ac2g);color:var(--ac2);border:1px solid rgba(0,212,255,0.2)}
+.sec-badge.pink{background:var(--ac3g);color:var(--ac3);border:1px solid rgba(247,37,120,0.2)}
+.sec-badge.green{background:var(--ac4g);color:var(--ac4);border:1px solid rgba(0,255,148,0.2)}
+.sec-h{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.035em;line-height:1.1;margin-bottom:1rem}
+.sec-sub{font-size:1rem;color:var(--tx2);line-height:1.7;max-width:560px}
+
+/* ── PROBLEM ── */
+.problem{padding:6rem 0;border-top:1px solid var(--bd)}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+.prob-card{background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:1.5rem}
+.prob-ico{font-size:28px;margin-bottom:1rem}
+.prob-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:.5rem}
+.prob-card p{font-size:14px;color:var(--tx2);line-height:1.65}
+
+/* ── TOOLS ── */
+.tools{padding:6rem 0;border-top:1px solid var(--bd)}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.tool-card{border-radius:18px;padding:1.75rem;border:1px solid var(--bd);background:var(--surf);transition:transform .2s}
+.tool-card:hover{transform:translateY(-4px)}
+.tool-card.t1{border-color:rgba(168,85,247,0.2);background:linear-gradient(135deg,rgba(168,85,247,0.06),var(--surf))}
+.tool-card.t2{border-color:rgba(0,212,255,0.2);background:linear-gradient(135deg,rgba(0,212,255,0.06),var(--surf))}
+.tool-card.t3{border-color:rgba(247,37,120,0.2);background:linear-gradient(135deg,rgba(247,37,120,0.06),var(--surf))}
+.tool-num{font-size:11px;font-weight:500;letter-spacing:.1em;margin-bottom:1rem}
+.t1 .tool-num{color:var(--ac1)}.t2 .tool-num{color:var(--ac2)}.t3 .tool-num{color:var(--ac3)}
+.tool-card h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:.75rem}
+.tool-card p{font-size:14px;color:var(--tx2);line-height:1.65;margin-bottom:1.25rem}
+.tool-feats{display:flex;flex-direction:column;gap:6px}
+.tool-feat{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tx2)}
+.tool-feat::before{content:'✦';font-size:10px}
+.t1 .tool-feat::before{color:var(--ac1)}.t2 .tool-feat::before{color:var(--ac2)}.t3 .tool-feat::before{color:var(--ac3)}
+
+/* ── HOW IT WORKS ── */
+.how{padding:6rem 0;border-top:1px solid var(--bd);text-align:center}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem;position:relative}
+.steps::before{content:'';position:absolute;top:28px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,var(--ac1),var(--ac2),var(--ac3),var(--ac4));z-index:0}
+.step-item{position:relative;z-index:1}
+.step-num{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin:0 auto 1rem;border:1px solid}
+.step-item:nth-child(1) .step-num{background:var(--ac1g);border-color:rgba(168,85,247,0.3);color:var(--ac1)}
+.step-item:nth-child(2) .step-num{background:var(--ac2g);border-color:rgba(0,212,255,0.3);color:var(--ac2)}
+.step-item:nth-child(3) .step-num{background:var(--ac3g);border-color:rgba(247,37,120,0.3);color:var(--ac3)}
+.step-item:nth-child(4) .step-num{background:var(--ac4g);border-color:rgba(0,255,148,0.3);color:var(--ac4)}
+.step-item h4{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:.4rem}
+.step-item p{font-size:13px;color:var(--tx2);line-height:1.55}
+
+/* ── SOCIAL PROOF ── */
+.proof{padding:6rem 0;border-top:1px solid var(--bd)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.proof-card{background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:1.5rem}
+.proof-stars{color:#FFB400;font-size:14px;margin-bottom:1rem;letter-spacing:2px}
+.proof-text{font-size:14px;color:var(--tx);line-height:1.7;margin-bottom:1.25rem;font-style:italic}
+.proof-author{display:flex;align-items:center;gap:10px}
+.proof-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.proof-info b{display:block;font-size:13px;font-weight:500}
+.proof-info span{font-size:12px;color:var(--tx2)}
+
+/* ── PRICING ── */
+.pricing{padding:6rem 0;border-top:1px solid var(--bd);text-align:center}
+.price-box{max-width:440px;margin:3rem auto 0;background:var(--surf);border:1px solid rgba(168,85,247,0.3);border-radius:24px;padding:2.5rem;position:relative;box-shadow:0 0 60px rgba(168,85,247,0.1)}
+.price-pop{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--ac1);color:#fff;padding:4px 16px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.price-name{font-size:13px;color:var(--tx2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
+.price-val{font-family:'Syne',sans-serif;font-size:58px;font-weight:900;letter-spacing:-.04em;line-height:1;color:var(--tx)}
+.price-val sup{font-size:24px;vertical-align:super;color:var(--tx2)}
+.price-val sub{font-size:18px;color:var(--tx2);font-weight:400}
+.price-desc{font-size:13px;color:var(--tx2);margin:1rem 0 1.5rem}
+.price-feats{text-align:left;display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
+.price-feat{display:flex;align-items:center;gap:10px;font-size:14px}
+.price-feat::before{content:'✓';color:var(--ac4);font-weight:700;flex-shrink:0}
+.price-feat.no{color:var(--tx2)}.price-feat.no::before{content:'✕';color:var(--tx3)}
+.price-cta{width:100%;padding:16px;background:var(--ac1);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:block;text-align:center;box-shadow:0 0 30px rgba(168,85,247,0.4);transition:all .2s}
+.price-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(168,85,247,0.5)}
+.price-guarantee{margin-top:1.25rem;font-size:12px;color:var(--tx3);display:flex;align-items:center;justify-content:center;gap:6px}
+
+/* ── FAQ ── */
+.faq{padding:6rem 0;border-top:1px solid var(--bd)}
+.faq-list{max-width:680px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1px}
+.faq-item{border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-bottom:8px;background:var(--surf)}
+.faq-q{padding:1.125rem 1.25rem;font-size:15px;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;user-select:none}
+.faq-q::after{content:'+';font-size:20px;color:var(--ac1);flex-shrink:0;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{font-size:14px;color:var(--tx2);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
+.faq-item.open .faq-a{max-height:300px;padding:0 1.25rem 1.25rem}
+
+/* ── CTA FINAL ── */
+.cta-final{padding:8rem 0;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(168,85,247,0.12),transparent);pointer-events:none}
+.cta-final h2{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:900;letter-spacing:-.04em;line-height:1.1;margin-bottom:1.25rem}
+.cta-final h2 em{font-style:normal;background:linear-gradient(135deg,var(--ac1),var(--ac3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-final p{font-size:1.05rem;color:var(--tx2);margin-bottom:2.5rem;line-height:1.7}
+
+/* ── FOOTER ── */
+footer{padding:2rem;border-top:1px solid var(--bd);text-align:center;font-size:12px;color:var(--tx3)}
+
+/* ── STATS BAR ── */
+.stats-bar{padding:3rem 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat-n{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:900;letter-spacing:-.04em;line-height:1}
+.stat-l{font-size:13px;color:var(--tx2);margin-top:4px}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.on{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:.875rem 1.25rem}
+  .problem-grid,.tools-grid,.proof-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .demo-inner{grid-template-columns:1fr}
+  .hero h1{font-size:2.5rem}
+}
+@media(max-width:480px){
+  .steps{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ORBS -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-mark">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l4.5 5-4.5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <span class="nav-name">CreatorKit</span>
+  </div>
+  <a href="https://pay.kiwify.com.br/bFsAdh6" class="nav-cta">Começar agora →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-badge">
+      <span></span>
+      IA que entende o seu público
+    </div>
+    <h1>
+      Conecte sua mensagem<br>
+      ao <em>público certo</em><br>
+      em minutos
+    </h1>
+    <p class="hero-sub">
+      O CreatorKit usa inteligência artificial para criar personas detalhadas, roteiros prontos para gravar e sequências de stories — tudo pensado para o empreendedor que quer vender mais gastando menos tempo.
+    </p>
+    <div class="hero-ctas">
+      <a href="#pricing" class="btn-main">Quero começar agora →</a>
+      <a href="#tools" class="btn-sec">Ver as ferramentas</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-ava">
+        <div class="ava-circle">M</div>
+        <div class="ava-circle" style="background:linear-gradient(135deg,var(--ac2),var(--ac3))">A</div>
+        <div class="ava-circle" style="background:linear-gradient(135deg,var(--ac3),var(--ac4))">R</div>
+        <div class="ava-circle" style="background:linear-gradient(135deg,var(--ac4),var(--ac1))">+</div>
+      </div>
+      <p class="proof-txt"><b>Empreendedores</b> já usam o CreatorKit para crescer</p>
+    </div>
+
+    <!-- DEMO MOCKUP -->
+    <div class="hero-demo">
+      <div class="demo-frame">
+        <div class="demo-bar">
+          <div class="demo-dots">
+            <div class="demo-dot" style="background:#FF5F57"></div>
+            <div class="demo-dot" style="background:#FFBD2E"></div>
+            <div class="demo-dot" style="background:#28C840"></div>
+          </div>
+          <div class="demo-url">creatorkit.app — Persona Gen</div>
+        </div>
+        <div class="demo-inner">
+          <div class="demo-card">
+            <div class="demo-card-label">👤 Persona gerada</div>
+            <div class="demo-card-val"><em>Carla, 34 anos — "Quero crescer, mas não sei por onde começar"</em><br><br>Empreendedora de primeira geração, dona de loja online de moda plus size no interior de SP. Sente que investe em anúncios sem resultado porque não sabe falar com a pessoa certa...</div>
+          </div>
+          <div class="demo-card">
+            <div class="demo-card-label">🔥 Top 3 dores identificadas</div>
+            <div class="demo-card-val cyan"><em>1. Dinheiro investido em anúncio que não converte</em><br><em>2. Não saber qual conteúdo fazer</em><br><em>3. Sensação de estar fazendo tudo errado</em><br><br>+ 2 objeções mapeadas + 3 headlines prontas para anúncio</div>
+          </div>
+          <div class="demo-card">
+            <div class="demo-card-label">🎯 Roteiro gerado — Reels 30s</div>
+            <div class="demo-card-val pink"><em>[CENA 1]</em> Você investe em anúncio e não vende? O problema não é o produto...<br><em>[CENA 2]</em> A maioria dos empreendedores fala com todo mundo e não converte ninguém<br><em>[CTA]</em> Comenta QUERO e eu te explico</div>
+          </div>
+          <div class="demo-card">
+            <div class="demo-card-label">📱 Stories — Sequência 7 slides</div>
+            <div class="demo-card-val green"><em>Slide 1:</em> "Eu estava errando nisso e nem sabia..."<br><em>Slide 4:</em> O segredo que mudou tudo no meu negócio<br><em>Slide 7:</em> Arrasta para cima e descobre como →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-row reveal">
+      <div><div class="stat-n" style="color:var(--ac1)">3</div><div class="stat-l">Ferramentas de IA</div></div>
+      <div><div class="stat-n" style="color:var(--ac2)">70+</div><div class="stat-l">Ganchos prontos</div></div>
+      <div><div class="stat-n" style="color:var(--ac3)">3</div><div class="stat-l">Idiomas (PT/EN/ES)</div></div>
+      <div><div class="stat-n" style="color:var(--ac4)">&lt;60s</div><div class="stat-l">Para gerar resultado</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-badge pink">O problema real</div>
+      <h2 class="sec-h">Você conhece seu produto.<br>Mas conhece seu público?</h2>
+      <p class="sec-sub">A maioria dos empreendedores perde dinheiro não por falta de produto bom — mas por falar com a pessoa errada, na hora errada, do jeito errado.</p>
+    </div>
+    <div class="problem-grid reveal">
+      <div class="prob-card">
+        <div class="prob-ico">💸</div>
+        <h3>Anúncios que não convertem</h3>
+        <p>Você investe em tráfego mas o retorno é baixo porque a mensagem não ressoa com quem deveria comprar.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-ico">😶</div>
+        <h3>Conteúdo que ninguém engaja</h3>
+        <p>Publica todo dia mas o alcance é zero. Não é o algoritmo — é que o conteúdo não fala diretamente com ninguém.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-ico">⏳</div>
+        <h3>Horas perdidas pensando no que postar</h3>
+        <p>O bloco criativo toma mais tempo do que a execução. Você sabe que precisa postar, mas não sabe o quê.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-ico">🎯</div>
+        <h3>Falta de direção estratégica</h3>
+        <p>Você produz conteúdo, mas sem uma persona clara, cada post é uma aposta — sem estratégia real por trás.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools" id="tools">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="sec-badge purple">As ferramentas</div>
+      <h2 class="sec-h">Tudo que você precisa para<br>criar, gravar e vender</h2>
+      <p class="sec-sub" style="margin:0 auto">Três ferramentas de IA que trabalham juntas para transformar a forma como você se comunica com seu público.</p>
+    </div>
+    <div class="tools-grid reveal">
+      <div class="tool-card t1">
+        <div class="tool-num">✦ FERRAMENTA 01</div>
+        <h3>Persona Gen</h3>
+        <p>Gera uma persona completa e detalhada do seu cliente ideal — com dores, desejos, objeções, rotina e até headlines prontos para anúncios.</p>
+        <div class="tool-feats">
+          <div class="tool-feat">Nome, idade, profissão e rotina detalhada</div>
+          <div class="tool-feat">Top 5 dores rankeadas por intensidade</div>
+          <div class="tool-feat">3 headlines prontas para anúncios</div>
+          <div class="tool-feat">Gatilhos de compra identificados</div>
+          <div class="tool-feat">Tom de comunicação ideal</div>
+        </div>
+      </div>
+      <div class="tool-card t2">
+        <div class="tool-num">◎ FERRAMENTA 02</div>
+        <h3>Roteiro Gen</h3>
+        <p>Cria roteiros prontos para gravar para Reels, TikTok e Stories — com gancho, cenas, falas exatas e CTA poderoso.</p>
+        <div class="tool-feats">
+          <div class="tool-feat">70+ ganchos em 9 categorias</div>
+          <div class="tool-feat">Adaptado para topo, meio e fundo de funil</div>
+          <div class="tool-feat">Falas exatas palavra por palavra</div>
+          <div class="tool-feat">Sugestões de corte e transição</div>
+          <div class="tool-feat">CTA personalizado por objetivo</div>
+        </div>
+      </div>
+      <div class="tool-card t3">
+        <div class="tool-num">▪ FERRAMENTA 03</div>
+        <h3>Stories Gen</h3>
+        <p>Gera sequências completas de Instagram Stories — texto do slide + sugestão de arte — prontas para publicar.</p>
+        <div class="tool-feats">
+          <div class="tool-feat">Sequências de 5 a 12 slides</div>
+          <div class="tool-feat">Texto + instrução de arte por slide</div>
+          <div class="tool-feat">6 objetivos: venda, engajamento, autoridade...</div>
+          <div class="tool-feat">5 tons de comunicação diferentes</div>
+          <div class="tool-feat">CTA estratégico no último slide</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-badge cyan">Como funciona</div>
+      <h2 class="sec-h">Da ideia ao conteúdo em 4 passos</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <h4>Descreva seu negócio</h4>
+        <p>Informe seu nicho, produto e cliente ideal em menos de 2 minutos.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <h4>Gere a Persona</h4>
+        <p>A IA cria um perfil completo do seu cliente ideal com dores, desejos e gatilhos.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <h4>Crie o conteúdo</h4>
+        <p>Use a persona para gerar roteiros de Reels e sequências de Stories em segundos.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <h4>Publique e venda</h4>
+        <p>Conteúdo estratégico, na linguagem certa, para o público certo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="sec-badge green">Resultados reais</div>
+      <h2 class="sec-h">Empreendedores que<br>transformaram seu conteúdo</h2>
+    </div>
+    <div class="proof-grid reveal">
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <p class="proof-text">"Eu passava horas tentando escrever um roteiro e ainda não ficava bom. Com o CreatorKit, em 5 minutos tenho um conteúdo que fala direto com minha cliente. Minhas vendas subiram 40% no primeiro mês."</p>
+        <div class="proof-author">
+          <div class="proof-av" style="background:linear-gradient(135deg,var(--ac1),var(--ac3))">A</div>
+          <div class="proof-info"><b>Ana Clara</b><span>Loja de moda feminina online</span></div>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <p class="proof-text">"Sempre soube que tinha um bom produto, mas não conseguia explicar pra quem era. A Persona Gen me mostrou exatamente quem é minha cliente e como falar com ela. Resultado: 3x mais DMs qualificados."</p>
+        <div class="proof-author">
+          <div class="proof-av" style="background:linear-gradient(135deg,var(--ac2),var(--ac4))">R</div>
+          <div class="proof-info"><b>Rafael Mota</b><span>Consultor de negócios digitais</span></div>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <p class="proof-text">"Uso o Stories Gen toda semana. Antes ficava em branco sem saber o que postar. Agora tenho sequências completas em minutos — e meu engajamento dobrou em 3 semanas."</p>
+        <div class="proof-author">
+          <div class="proof-av" style="background:linear-gradient(135deg,var(--ac3),var(--ac1))">M</div>
+          <div class="proof-info"><b>Mariana Souza</b><span>Coach de produtividade</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-badge purple">Investimento</div>
+      <h2 class="sec-h">Simples, sem surpresas</h2>
+      <p class="sec-sub" style="margin:0 auto">Acesso completo às 3 ferramentas por um valor que você recupera na primeira venda.</p>
+    </div>
+    <div class="price-box reveal">
+      <div class="price-pop">🔥 Oferta de lançamento</div>
+      <div class="price-name">Plano Mensal — Acesso Completo</div>
+      <div class="price-val"><sup>R$</sup>97<sub>/mês</sub></div>
+      <div class="price-desc">Cancele quando quiser. Sem fidelidade.</div>
+      <div class="price-feats">
+        <div class="price-feat">Persona Gen — perfis ilimitados</div>
+        <div class="price-feat">Roteiro Gen — roteiros ilimitados</div>
+        <div class="price-feat">Stories Gen — sequências ilimitadas</div>
+        <div class="price-feat">Dashboard de gestão de conteúdo</div>
+        <div class="price-feat">PT, EN e ES disponíveis</div>
+        <div class="price-feat">Atualizações incluídas</div>
+        <div class="price-feat">Suporte via WhatsApp</div>
+      </div>
+      <a href="#" class="price-cta" id="cta-buy">Quero o CreatorKit agora →</a>
+      <div class="price-guarantee">🔒 Pagamento seguro &nbsp;·&nbsp; Cancele quando quiser</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="sec-badge cyan">Dúvidas frequentes</div>
+      <h2 class="sec-h">Perguntas e respostas</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Preciso entender de IA para usar?</div>
+        <div class="faq-a">Não. O CreatorKit foi feito para empreendedores, não para técnicos. Você só responde algumas perguntas simples sobre seu negócio e a IA faz o resto. Se você sabe usar o WhatsApp, sabe usar o CreatorKit.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Funciona para qualquer nicho?</div>
+        <div class="faq-a">Sim. A ferramenta é adaptável para qualquer segmento — moda, saúde, educação, serviços, produtos físicos, infoprodutos, negócios locais e muito mais. Quanto mais específico você for ao descrever seu negócio, mais preciso será o resultado.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">O conteúdo gerado é copiado de outros lugares?</div>
+        <div class="faq-a">Não. Cada persona, roteiro e sequência de stories é criada exclusivamente para você, baseada nas informações que você fornece. Não é um template genérico — é conteúdo personalizado para o seu negócio.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Posso cancelar quando quiser?</div>
+        <div class="faq-a">Sim, sem burocracia. Você cancela quando quiser e não é cobrado no próximo mês. Sem multa, sem fidelidade.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Funciona no celular?</div>
+        <div class="faq-a">Sim. O CreatorKit é responsivo e funciona em qualquer dispositivo — computador, tablet ou celular.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Como recebo o acesso após o pagamento?</div>
+        <div class="faq-a">Logo após a confirmação do pagamento, você recebe por e-mail o link de acesso às ferramentas. O acesso é imediato.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="container">
+    <div class="reveal">
+      <h2>Seu público está esperando<br>pela mensagem <em>certa</em></h2>
+      <p>Pare de perder tempo e dinheiro com conteúdo que não converte.<br>Deixa a IA trabalhar por você.</p>
+      <a href="https://pay.kiwify.com.br/bFsAdh6" class="btn-main" style="margin:0 auto;display:inline-flex">Começar agora por R$97/mês →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 CreatorKit — Todos os direitos reservados</p>
+</footer>
+
+<script>
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('on'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+
+// FAQ toggle
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// CTA button — troque pelo link da sua plataforma de pagamento
+document.getElementById('cta-buy').href = 'https://pay.kiwify.com.br/bFsAdh6';
+
+</script>
+</body>
+</html>
