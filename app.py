@@ -1,11 +1,3 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import requests
-import os
-
-app = Flask(__name__)
-CORS(app)  # permite chamadas de qualquer origem (seus HTMLs)
-
 ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 
@@ -25,7 +17,7 @@ def chat():
         return jsonify({"error": "Body inválido."}), 400
 
     # garante model e max_tokens corretos
-    body["model"] = "claude-sonnet-4-20250514"
+    body["model"] = "claude-sonnet-4-6"
     if "max_tokens" not in body:
         body["max_tokens"] = 3000
 
