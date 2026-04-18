@@ -20,21 +20,25 @@ def chat():
     body = request.get_json()
     if not body:
         return jsonify({"error": "Body invalido."}), 400
-    body["model"] = "claude-opus-4-5"
-    body["max_tokens"] = 3000
-    resp = requests.post(
-        ANTHROPIC_URL,
-        headers={
-            "Content-Type": "application/json",
-            "x-api-key": ANTHROPIC_KEY,
-            "anthropic-version": "2023-06-01",
-        },
-        json=body,
-        timeout=90,
-    )
-    print("STATUS:", resp.status_code)
-    print("RESPOSTA:", resp.text[:500])
-    return jsonify(resp.json()), resp.status_code
+    body["model"] = "claude-haiku-4-5"
+    body["max_tokens"] = 2048
+    try:
+        resp = requests.post(
+            ANTHROPIC_URL,
+            headers={
+                "Content-Type": "application/json",
+                "x-api-key": ANTHROPIC_KEY,
+                "anthropic-version": "2023-06-01",
+            },
+            json=body,
+            timeout=60,
+        )
+        print("STATUS:", resp.status_code)
+        print("RESPOSTA:", resp.text[:300])
+        return jsonify(resp.json()), resp.status_code
+    except Exception as e:
+        print("ERRO:", str(e))
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
