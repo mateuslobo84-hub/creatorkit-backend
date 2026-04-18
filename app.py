@@ -20,9 +20,8 @@ def chat():
     body = request.get_json()
     if not body:
         return jsonify({"error": "Body invalido."}), 400
-    body["model"] = "claude-sonnet-4-6"
-    if "max_tokens" not in body:
-        body["max_tokens"] = 3000
+    body["model"] = "claude-opus-4-5"
+    body["max_tokens"] = 3000
     resp = requests.post(
         ANTHROPIC_URL,
         headers={
@@ -33,6 +32,8 @@ def chat():
         json=body,
         timeout=90,
     )
+    print("STATUS:", resp.status_code)
+    print("RESPOSTA:", resp.text[:500])
     return jsonify(resp.json()), resp.status_code
 
 if __name__ == "__main__":
