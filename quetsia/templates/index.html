@@ -50,7 +50,7 @@ footer{padding:var(--spacing-32) 0;text-align:center;font-size:13px;color:var(--
     <a class="btn btn-primary" href="{{ checkout }}">Quero o Método Quetsia</a>
     <a class="btn btn-ghost" href="#conteudo">Ver o conteúdo</a>
   </div>
-  <p class="trust">9 módulos · 4 bônus · por R$ {{ preco }}</p>
+  <p class="trust">9 módulos · 4 bônus · garantia de 7 dias · R$ {{ preco }}</p>
   <div class="mock"><div class="glow"></div>
     <img src="{{ url_for('static', filename='hero.png') }}" alt="Da dúvida ao sim: círculos vazios que se preenchem em verde" width="2400" height="1400">
   </div>
@@ -75,7 +75,7 @@ footer{padding:var(--spacing-32) 0;text-align:center;font-size:13px;color:var(--
 
 <section class="section"><div class="container">
   <h2>Bônus para aplicar já</h2>
-  <p class="sub">Solicite seus bônus por e-mail 7 dias após a compra.</p>
+  <p class="sub">Os bônus chegam após os 7 dias de garantia.</p>
   <div class="grid">{% for b in bonus %}
     <div class="card"><div class="k">Bônus {{ loop.index }}</div><b>{{ b }}</b></div>
   {% endfor %}</div>
@@ -86,13 +86,18 @@ footer{padding:var(--spacing-32) 0;text-align:center;font-size:13px;color:var(--
   <p class="sub bio">Quetsia Adeliano é corretora de imóveis e profissional da área comercial, com atuação no mercado imobiliário e experiência prática em atendimento, relacionamento e vendas. Percebeu que muitos profissionais sabem apresentar imóveis, mas têm dificuldade em conduzir pessoas. Dessa percepção nasceu o Método Quetsia: perguntas estratégicas, escuta, qualificação, percepção de valor e condução.</p>
 </div></section>
 
+<section class="section"><div class="container">
+  <h2>Garantia de 7 dias</h2>
+  <p class="sub">Entre, assista e aplique. Se não fizer sentido para você, peça o reembolso em até 7 dias. Passado esse prazo, os 4 bônus são liberados.</p>
+</div></section>
+
 <section class="section"><div class="container center">
   <h2>Característica não é valor.</h2>
   <p class="sub">Comece hoje a atender como consultor, não como vendedor.</p>
   <div class="card offer">
     <div class="k" style="font-size:13px">Método Quetsia + 4 bônus</div>
     <div class="price"><small>R$</small>{{ preco }}</div>
-    <p style="margin-bottom:var(--spacing-24);font-size:14px">9 módulos e 4 bônus incluídos</p>
+    <p style="margin-bottom:var(--spacing-24);font-size:14px">9 módulos e 4 bônus incluídos<br>Garantia de 7 dias</p>
     <a class="btn btn-primary" href="{{ checkout }}">Quero o Método Quetsia</a>
   </div>
 </div></section>
