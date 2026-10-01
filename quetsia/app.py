@@ -3,6 +3,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+PRECO = os.environ.get("PRECO", "197")
 CHECKOUT_URL = os.environ.get("CHECKOUT_URL", "https://pay.hotmart.com/P107593092M")
 
 MODULOS = [
@@ -40,7 +41,7 @@ BONUS = [
 
 @app.route("/")
 def index():
-    return render_template("index.html", checkout=CHECKOUT_URL, modulos=MODULOS,
+    return render_template("index.html", checkout=CHECKOUT_URL, preco=PRECO, modulos=MODULOS,
                            aprender=APRENDER, bonus=BONUS)
 
 

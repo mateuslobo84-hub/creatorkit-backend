@@ -29,6 +29,9 @@ nav .logo{font:500 16px/1 var(--font-inter);color:var(--color-ghost-white);lette
 .promise{font:400 var(--text-display)/1 var(--font-alpha-lyrae);font-feature-settings:"ss01","ss02";color:var(--color-ghost-white);text-align:center;max-width:900px;margin:0 auto}
 .bio{max-width:720px;margin:var(--spacing-32) auto 0;text-align:center}
 .center{text-align:center}
+.offer{max-width:520px;margin:var(--spacing-48) auto 0;text-align:center;padding:var(--spacing-40) var(--spacing-24)}
+.price{font:600 48px/1 var(--font-inter);letter-spacing:-0.03em;color:var(--color-ghost-white);margin:var(--spacing-16) 0 var(--spacing-8)}
+.price small{font-size:var(--text-body-lg);font-weight:400;color:var(--color-ash-gray);margin-right:var(--spacing-4)}
 footer{padding:var(--spacing-32) 0;text-align:center;font-size:13px;color:var(--color-steel-gray);border-top:1px solid var(--color-graphite)}
 .sticky{display:none}
 @media(max-width:700px){.section{padding:64px 0}.promise{font-size:30px}.hero{padding-bottom:64px}
@@ -47,7 +50,7 @@ footer{padding:var(--spacing-32) 0;text-align:center;font-size:13px;color:var(--
     <a class="btn btn-primary" href="{{ checkout }}">Quero o Método Quetsia</a>
     <a class="btn btn-ghost" href="#conteudo">Ver o conteúdo</a>
   </div>
-  <p class="trust">9 módulos · 4 bônus · acesso imediato</p>
+  <p class="trust">9 módulos · 4 bônus · por R$ {{ preco }}</p>
   <div class="mock"><div class="glow"></div>
     <img src="{{ url_for('static', filename='hero.png') }}" alt="Da dúvida ao sim: círculos vazios que se preenchem em verde" width="2400" height="1400">
   </div>
@@ -86,7 +89,12 @@ footer{padding:var(--spacing-32) 0;text-align:center;font-size:13px;color:var(--
 <section class="section"><div class="container center">
   <h2>Característica não é valor.</h2>
   <p class="sub">Comece hoje a atender como consultor, não como vendedor.</p>
-  <div class="actions" style="margin-top:32px"><a class="btn btn-primary" href="{{ checkout }}">Quero o Método Quetsia</a></div>
+  <div class="card offer">
+    <div class="k" style="font-size:13px">Método Quetsia + 4 bônus</div>
+    <div class="price"><small>R$</small>{{ preco }}</div>
+    <p style="margin-bottom:var(--spacing-24);font-size:14px">9 módulos e 4 bônus incluídos</p>
+    <a class="btn btn-primary" href="{{ checkout }}">Quero o Método Quetsia</a>
+  </div>
 </div></section>
 
 <footer>© Método Quetsia · Todos os direitos reservados</footer>
