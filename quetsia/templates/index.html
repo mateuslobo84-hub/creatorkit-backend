@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Método Quetsia | Atendimento consultivo para corretores</title>
+<meta name="description" content="Conduza o cliente do primeiro contato ao fechamento sem pressionar, usando perguntas estratégicas, escuta e percepção de valor.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09142d;--bg2:#0e1d40;--ink:#eef1f8;--mute:#9aa8c7;--gold:#d6ae60;--line:#22335f}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.65 Inter,sans-serif}
+h1,h2,h3{font-family:Fraunces,serif;font-weight:600;line-height:1.15}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+section{padding:72px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(28px,4vw,40px);margin-bottom:12px}
+.eyebrow{color:var(--gold);letter-spacing:.2em;font-size:13px;text-transform:uppercase;margin-bottom:14px}
+.hero{padding:56px 0 64px;text-align:center;border:0}
+.hero h1{font-size:clamp(34px,6vw,60px);max-width:820px;margin:0 auto 18px}
+.hero p.sub{color:var(--mute);max-width:640px;margin:0 auto 28px;font-size:19px}
+.hero img{width:100%;height:auto;border-radius:10px;margin-top:44px;border:1px solid var(--line)}
+.btn{display:inline-block;background:var(--gold);color:#1a1200;font-weight:600;padding:18px 36px;border-radius:999px;text-decoration:none;font-size:18px;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:28px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:20px}
+.card b{display:block;margin-bottom:4px}.card span{color:var(--mute);font-size:15px}
+.num{color:var(--gold);font-family:Fraunces,serif;font-size:14px;letter-spacing:.1em}
+ul.ok{list-style:none;padding:0;columns:2 280px;column-gap:32px;margin-top:24px}
+ul.ok li{padding:7px 0 7px 28px;position:relative;break-inside:avoid}
+ul.ok li:before{content:"✓";position:absolute;left:0;color:var(--gold)}
+.promise{font-family:Fraunces,serif;font-size:clamp(22px,3vw,30px);color:var(--gold);line-height:1.6}
+.center{text-align:center}
+.cta{background:var(--bg2)}
+footer{padding:32px 0;color:var(--mute);font-size:13px;text-align:center;border-top:1px solid var(--line)}
+.sticky{display:none}
+@media(max-width:700px){section{padding:52px 0}.sticky{display:block;position:fixed;left:0;right:0;bottom:0;padding:10px 16px;background:var(--bg);border-top:1px solid var(--line);text-align:center;z-index:9}.sticky .btn{display:block;padding:14px}body{padding-bottom:72px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">Método Quetsia</p>
+  <h1>O método de atendimento que transforma conversas em oportunidades e oportunidades em vendas</h1>
+  <p class="sub">Aprenda a conduzir o cliente do primeiro contato ao fechamento sem pressionar, usando perguntas estratégicas, escuta e percepção de valor.</p>
+  <a class="btn" href="{{ checkout }}">Quero o Método Quetsia</a>
+  <img src="{{ url_for('static', filename='hero.png') }}" alt="Da dúvida ao sim: círculos vazios que se preenchem em dourado" width="2400" height="1400">
+</div></header>
+
+<section><div class="wrap center">
+  <p class="eyebrow">Promessa do método</p>
+  <p class="promise">Descubra o que o cliente precisa. Mostre que você entendeu. Confirme o que realmente importa. Conecte a solução ao valor. E conduza o próximo passo.</p>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">O que você vai aprender</p>
+  <h2>Ao concluir o Método, você será capaz de:</h2>
+  <ul class="ok">{% for a in aprender %}<li>{{ a }}</li>{% endfor %}</ul>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Conteúdo</p>
+  <h2>9 módulos, do primeiro contato ao follow-up</h2>
+  <div class="grid">{% for t, d in modulos %}
+    <div class="card"><span class="num">MÓDULO {{ '%02d' % loop.index }}</span><b>{{ t }}</b><span>{{ d }}</span></div>
+  {% endfor %}</div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Bônus</p>
+  <h2>Materiais para aplicar já no próximo atendimento</h2>
+  <div class="grid">{% for b in bonus %}
+    <div class="card"><span class="num">BÔNUS {{ loop.index }}</span><b>{{ b }}</b></div>
+  {% endfor %}</div>
+  <p style="color:var(--mute);margin-top:16px;font-size:15px">Solicite seus bônus por e-mail 7 dias após a compra.</p>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">Quem é Quetsia?</p>
+  <h2>Quetsia Adeliano</h2>
+  <p style="color:var(--mute);max-width:720px;margin-top:8px">Corretora de imóveis e profissional da área comercial, com atuação no mercado imobiliário e experiência prática em atendimento, relacionamento e vendas. Percebeu que muitos profissionais sabem apresentar imóveis, mas têm dificuldade em conduzir pessoas. Dessa percepção nasceu o Método Quetsia: perguntas estratégicas, escuta, qualificação, percepção de valor e condução.</p>
+</div></section>
+
+<section class="cta"><div class="wrap center">
+  <h2>Característica não é valor.</h2>
+  <p style="color:var(--mute);margin-bottom:28px">Comece hoje a atender como consultor, não como vendedor.</p>
+  <a class="btn" href="{{ checkout }}">Quero o Método Quetsia</a>
+</div></section>
+
+<footer>© Método Quetsia · Todos os direitos reservados</footer>
+<div class="sticky"><a class="btn" href="{{ checkout }}">Quero o Método Quetsia</a></div>
+</body></html>
